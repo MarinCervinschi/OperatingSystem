@@ -9,10 +9,7 @@
 **3) Dopo avere nuovamente fatto il login, senza spostarsi dalla propria HOME directory, visualizzare il contenuto
 della directory / (root).**
 ```
-    cd /
-```
-```
-    ls
+    ls /
 ```
 **4) Sempre senza spostarsi dalla propria HOME directory, verificare il contenuto del file /etc/passwd.**
 ```
@@ -28,7 +25,7 @@ della directory / (root).**
 ```
 **7) Senza spostarsi dalla directory /etc, visualizzare quale è la propria HOME directory.**
 ```
-    ls /
+    echo $HOME
 ```
 **8) Visualizzare nuovamente il file passwd.**
 ```
@@ -40,7 +37,7 @@ della directory / (root).**
 ```
 **10) Tornare nella propria HOME directory e verificarlo con lo stesso comando usato al punto 5).**
 ```
-    cd /
+    cd
 ```
 ## MULTIUTENZA E MULTIPROCESSING
 **11) Visualizzare le informazioni relative a UID e GID dell’utente corrente.**
@@ -52,11 +49,20 @@ della directory / (root).**
     ps
 ```
 ```
-    ps -lf
+    ps -f
+```
+```
+    ps -fl
 ```
 **13) Visualizzare tutti i processi attivi nel sistema, sia nella forma sintetica che nelle due forme più estese.**
 ```
-    ps -el
+    ps -e
+```
+```
+    ps -fe
+```
+```
+    ps -fle
 ```
 ## MISCELLANEA
 **14) Verificare il manuale di almeno uno dei comandi usati finora.**
@@ -65,11 +71,11 @@ della directory / (root).**
 ```
 **15) Verificare dove si trova il file eseguibile di almeno uno dei comandi usati finora.**
 ```
-    ls bin
+    which ps
 ```
 **16) Verificare anche dove si trova il suo manuale.**
 ```
-    cat /usr/share/man
+    whereis ps
 ```
 ## SHELL DIVERSE
 **17) Lanciare un’altra shell, ad esempio sh, e verificare i processi attivi e in particolare la relazione padre-figlio.**
@@ -77,7 +83,7 @@ della directory / (root).**
     sh
 ```
 ```
-    ps -f
+    ps -fl
 ```
 **18) All’interno della nuova shell precedentemente lanciata, lanciare un’altra shell, ad esempio bash, e verificare i
 processi attivi e in particolare la relazione padre-figlio.**
@@ -85,7 +91,7 @@ processi attivi e in particolare la relazione padre-figlio.**
     bash
 ```
 ```
-    ps -f
+    ps -fl
 ```
 ## NOMI FILE E COMANDO LS
 **19) Dopo aver verificato di essere nella propria HOME directory, con l’editor vi (o qualunque altro editor) creare
@@ -102,7 +108,7 @@ file con l’opportuno comando.**
     di prova per verificare l'esecuzione
 ```
 ```
-    ls nomefilemoltolungo
+    ls -l nomefilemoltolungo
 ```
 **20) Sempre nella propria HOME directory, con un editor creare un file che abbia un nome che contenga più
 occorrenze del carattere ‘.’; come prima, si scrivano almeno alcune linee in tale file. Si verifichi l’esistenza di
@@ -115,7 +121,7 @@ tale file con l’opportuno comando.**
     di prova per verificare l'esecuzione
 ```
 ```
-    ls file.di.prova.molto.lungo
+    ls -l file.di.prova.molto.lungo
 ```
 **21) Sempre nella propria HOME directory, con un editor creare un file che abbia un nome che inizi con il carattere
 ‘.’; come prima, si scrivano almeno alcune linee in tale file; si verifichi quindi il contenuto della home directory,
@@ -134,7 +140,7 @@ forzando le due visualizzazioni che consentono di ‘vedere’ anche i file il c
 **22) Cambiare la directory corrente spostandosi nella directory di sistema /home e visualizzare la sottogerarchia
 che parte da lì facendo vedere tutti i dettagli, anche sul ‘tipo’ dei file.**
 ```
-    ls -R home
+    ls -RlF home
 ```
 **23) Rimanendo nella directory di sistema /home, visualizzare il contenuto della propria HOME directory partendo
 dal file modificato più recentemente; aggiornare la data di modifica di uno dei file meno recenti e quindi
@@ -143,13 +149,13 @@ verificarne l’effetto ripetendo la visualizzazione della propria HOME director
     cd
 ```
 ```
-    ls -t
+    ls -tl
 ```
 ```
     touch -f
 ```
 ```
-    ls -t
+    ls -tl
 ```
 **24) Rimanendo nella directory di sistema /home, visualizzare il contenuto della propria HOME directory in ordine
 alfabetico inverso.**
@@ -159,7 +165,7 @@ alfabetico inverso.**
 **25) Rimanendo nella directory di sistema /home, visualizzare le informazioni relative al file che rappresenta la
 propria HOME directory.**
 ```
-    ls -l
+    ls -ld
 ```
 ## PATTERN MATCHING CON * E ?
 **26) Ritornare nella propria HOME directory e creare con un editor alcuni file per verificare le regole del pattern
@@ -169,14 +175,23 @@ matching sui nomi dei file.**
 ```
 **27) Verificare le sostituzioni del pattern matching invocando una shell che mostri appunto tali sostituzioni.**
 ```
-    ls f*
+    sh -x
+```
+```
+    ls *f?
+```
+```
+    ls *f*
+```
+```
+    ls ?f*
 ```
 **28) Verificare il pattern matching anche con il comando per visualizzare sullo standard output delle stringhe.**
 ```
-    cat f*
+    echo f*
 ```
 ```
-    more f*
+    echo *f*
 ```
 ## DIRITTI DI ACCESSO PER I FILE
 **29) Verificare i diritti di accesso dei file /etc/passwd e /etc/shadow.**
@@ -214,11 +229,11 @@ sottodirectory con l’opportuno comando.**
     mkdir porvaDir
 ```
 ```
-    ls porvaDir
+    ls -ld porvaDir
 ```
 **34) Controllare il contenuto di tale sottodirectory con l’opportuno comando.**
 ```
-    ls provaDir
+    ls -la provaDir
 ```
 **35) Cancellare la sottodirectory appena creata.**
 ```
@@ -234,7 +249,7 @@ nella propria HOME directory e verificare l’esistenza di tale copia.**
     cp file1 provaDir file1.copia
 ```
 ```
-    ls provaDir
+    ls -l provaDir
 ```
 **37) Modificare la copia e verificare che la modifica non abbia avuto effetto sul file ‘sorgente’**
 ```
@@ -276,11 +291,11 @@ l’opportuno comando.**
     nano provaDir/filediprova
 ```
 ```
-    cat provaDir/filediprova
+    ls -l provaDir/filediprova
 ```
 **43) Cancellare la sottodirectory provaDir.**
 ```
-    rm -r provaDir
+    rm -ri provaDir
 ```
 ## RIDIREZIONE *CAT*
 **44) Usando la ridirezione dello standard output del comando-filtro cat,
