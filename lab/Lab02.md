@@ -177,96 +177,215 @@ comando in background!).**
 **26) Usando la ridirezione dello standard input e il comando-filtro head, selezionare le prime 10 linee del file p.txt
 (quello creato nella precedente esercitazione).**
 ```shell
-
+    head < p.txt
 ```
 **27) Usando la ridirezione dello standard input e il comando-filtro head, selezionare la prima linea del file p.txt.**
 ```shell
-
+    head -1 < p.txt
 ```
 **28) Usando la ridirezione dello standard input e il comando-filtro head, selezionare le prime 3 linee del file p.txt.**
 ```shell
-
+    head -3 < p.txt
 ```
 **29) Usando la ridirezione dello standard input e il comando-filtro tail, selezionare le ultime 10 linee del file p.txt.**
 ```shell
-
+    tail < p.txt
 ```
 **30) Usando la ridirezione dello standard input e il comando-filtro tail, selezionare l’ultima linea del file p.txt.**
 ```shell
-
+    tai -1 < p.txt
 ```
 **31) Usando la ridirezione dello standard input e il comando-filtro tail, selezionare le ultime 3 linee del file p.txt.**
 ```shell
-
+    tail -3 < p.txt
 ```
 **32) Utilizzando la soluzione di uno degli esercizi precedenti su HEAD e TAIL, ridirigere lo standard output in un file
 di nome prova-head o prova-tail a seconda dei casi.**
 ```shell
-
+    tail -3 < p.txt > prova-head
 ```
 **33) Facendo riferimento ad uno qualunque degli esercizi precedenti sui comandi-filtro HEAD e TAIL (anche per
 tutti), provare anche le versioni comando HEAD e TAIL e quindi senza ridirezione dello standard input!
 Attenzione però che per produrre dei risultati che vanno salvati, come nel punto 32), la ridirezione dello
 standard output invece va usata.**
 ```shell
-
+    HEAD p.txt > prova-head
 ```
 **34) Utilizzando il piping dei comandi, isolare in un file di nome p.txt.terza la terza linea a partire dall’inizio del file
 p.txt.**
 ```shell
-
+    head -3 p.txt | cat > p.txt.terza
 ```
 **35) Utilizzando il piping dei comandi, isolare in un file di nome p.txt.terzultima la terza linea a partire dalla fine del
 file p.txt.**
 ```shell
-
+    tail -3 p.txt | cat > p.txt.terzultima
 ```
 ## REV
 **36) Usando la ridirezione dello standard input e il comando-filtro rev, verificarne il funzionamento su almeno uno
 dei file a disposizione.**
 ```shell
-
+    rev < p.txt 
 ```
 ## METACARATTERI [e]
-****
+**37) Utilizzando esclusivamente la ridirezione a vuoto, creare diversi file con nomi che iniziano e terminano con
+varie lettere dell’alfabeto maiuscole e minuscole e con numeri; creare anche un paio di directory con
+l’opportuno comando. Verificare quindi il comportamento dei comandi:**
+- a) echo [a-z]*
+- b) echo [A-Z]*
+- c) echo [0-9]*
+- d) echo *[a-z]
+- e) echo *[A-Z]
+- f) echo *[0-9]**
+```shell
+    echo [a-z]*
+```
+**38) Rifare i comandi precedenti usando la negazione: ad esempio per a) echo [!a-z]***
+```shell
+    echo [!a-z]
+```
+**39) Utilizzare nuovamente i pattern precedenti utilizzando però il comando ls –l: che cosa cambia?**
+```shell
+    ls - [a-z]* 
+```
+## VARIABILI DI SHELL E DI AMBIENTE
+**40) Memorizzare in una variabile di shell di nome a un valore scelto a proprio piacimento, quindi provare ad
+eseguire il file comandi prova.sh visto a lezione (scaricabile da GITHUB). Quale è il risultato?**
+```shell
+    a=10
+```
+```shell
+    ./prova.sh
+```
+```
+    Il valore della variabile a è
+    Il valore del comando PATH               /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    Il valore del comando HOME /Users/marin
+```
+**41) Rendere la variabile a variabile di ambiente e riprovare ad eseguire prova.sh. Quale è il risultato?**
+```shell
+    export a
+```
+```
+    Il valore della variabile a è 10
+    Il valore del comando PATH               /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    Il valore del comando HOME /Users/marin
+```
+**42) Verificare con il comando env, la presenza della variabile a nell’ambiente.**
+```shell
+    env
+```
+**43) Provare ad eseguire il file comandi prova1.sh visto a lezione (scaricabile da GITHUB). Quale è il risultato?**
+```shell
+    ./prova1.sh
+```
+```
+    Il valore della variabile a è 10
+    Il valore del commando PATH     /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    Il valore del commando HOME /Users/marin
+    Il valore della variabile a ora è hello
+```
+**44) Verificare il valore della variabile a nella shell di partenza.**
+```shell
+    echo $a
+```
+**45) Provare ad eseguire il file comandi prova1.sh visto a lezione (scaricabile da GITHUB) usando sh -x. Quale è
+il risultato?**
+```shell
+    sh -x prova1.sh
+```
+```
+    + echo Il valore della variabile a è 10
+    Il valore della variabile a è 10
+    + echo Il valore del commando PATH /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    Il valore del commando PATH     /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/v     r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    + echo Il valore del commando HOME /Users/marin
+    Il valore del commando HOME /Users/marin
+    + a=hello
+    + echo Il valore della variabile a ora è hello
+    Il valore della variabile a ora è hello
+```
+**46) Provare ad eseguire il file comandi provacomandi.sh visto a lezione (scaricabile da GITHUB). Quale è il
+risultato?**
+```shell
+    ./provacomandi.sh
+```
+```
+    SONO UN ALTRO ESEMPIO SEMPLICE DI FILE COMANDI
+    La directory di partenza quindi la HOME directory
+    /Users/marin
+    la PATH     /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    La PATH /
+    La directory corrente
+    /Users/marin/Documents/UNIMORE 2^anno/SISTEMI OPERATIVI/shell/mer.13.03.2024
+    Ho cambiato directory
+    La directory corrente
+    /Users/marin/Documents/UNIMORE 2^anno/SISTEMI OPERATIVI/shell
+    Verifica dove ti trovi dopo avermi eseguito e verifica anche il valore di PATH
+```
+**47) Verificare il valore della directory corrente e della variabile PATH nella shell di partenza.**
+```shell
+    pwd
+```
+```shell
+    echo $PATH
+```
+**48) Memorizzare in una variabile di shell di nome x, il numero di linee del file p.txt e quindi visualizzarne il valore.**
+```shell
+    x=`wc -l p.txt`
+```
+```shell
+    echo $x
+```
+**49) Memorizzare in una variabile di shell di nome y, il numero di linee del file prova e quindi visualizzarne il valore.**
+```shell
+    y=`wc -l prova`
+```
+```shell
+    echo $y
+```
+**50) Memorizzare in una variabile di shell di nome z, la somma della variabile x e della variabile y e visualizzarne il
+valore. Provare anche ad effettuare tutte le altre operazioni aritmetiche e quindi sottrazione, moltiplicazione,
+divisione intera e resto intero della divisione!**
+```shell
+    z=$x+$y
+```
+```shell
+    echo $z
+```
+**51) Con un editor, scrivere un file comandi prova-variabili.sh che visualizzi il valore delle variabili di shell x, y e z
+inserendo anche dei commenti significativi. Rendere eseguibile tale file comandi (verificare che sia eseguibile
+con ls –l prova-variabili.sh) e mandarlo in esecuzione. Quale è il risultato?**
+```shell
+    #!/bin/zsh
+    echo $x
+    echo $y
+    echo $z
+```
+```shell
+    chmod u+x prova-variabili.sh
+```
+```shell
+    ls -l prova-variabili.sh
+```
+```shell
+    ./prova-variabili.sh
+```
+**52) Rendere le variabili x, y e z variabili di ambiente e riprovare ad eseguire prova-variabili.sh. Quale è il risultato?**
+```shell
+    export x y z
+```
+```shell
+   ./prova-variabili.sh
+```
+**53) Verificare con il comando env, la presenza di x, y e z nell’ambiente.**
+```shell
+    env
+```
+**54) Copiare il file comandi prova-variabili.sh nel file comandi di nome prova-variabili-bis.sh, quindi aggiungere in
+fondo un comando che modifica il valore della variabile z e un comando che visualizza nuovamente il valore,
+sempre inserendo commenti significativi. Provare ad eseguire prova-variabili-bis.sh. Quale è il risultato? Quale
+valore ha la variabile z nella shell interattiva di partenza?**
 ```shell
 
 ```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-
-
