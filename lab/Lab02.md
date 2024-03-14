@@ -132,74 +132,102 @@ va usata.**
   GREP "\.$" ordinato-senza-spazi > prova-grep-2
 ```
 ## WC
-****
+**20) Usando la ridirezione dello standard input e il comando-filtro wc, contare le linee del file p.txt (quello creato
+nella precedente esercitazione).**
+```shell
+    wc -l < p.txt
+```
+**21) Usando la ridirezione dello standard input e il comando-filtro wc, contare i caratteri del file p.txt.**
+```shell
+    wc -m < p.txt
+```
+**22) Usando la ridirezione dello standard input e il comando-filtro wc, contare le parole del file p.txt.**
+```shell
+    wc -w < p.txt
+```
+**23) Verificare che cosa cambia nell’output dei precedenti 3 esercizi se invece che il comando-filtro wc si usa il
+comando wc!**
+```shell
+    error
+```
+**24) Usando il comando wc su un file di nome pippo (che non deve esistere) e ridirigendo lo standard error su
+/dev/null, verificare il valore di ritorno del comando.**
+```shell
+    wc pippo > /dev/null >&1
+```
+```shell
+    echo $?
+```
+**25) Utilizzando il comando ps in piping con il filtro tee temp e in piping con wc –l, verificare: a) il numero
+visualizzato; b) il contenuto del file di nome temp creato dal filtro tee (supponendo di non avere lanciato alcun
+comando in background!).**
+```shell
+    ps | tee temp | wc -l
+```
+```
+    4
+```
+```
+      PID TTY           TIME CMD
+    68853 ttys000    0:00.76 -zsh
+    69939 ttys000    0:00.00 tee temp
+    69940 ttys000    0:00.00 wc -l
+```
+## HEAD e TAIL
+**26) Usando la ridirezione dello standard input e il comando-filtro head, selezionare le prime 10 linee del file p.txt
+(quello creato nella precedente esercitazione).**
 ```shell
 
 ```
-****
+**27) Usando la ridirezione dello standard input e il comando-filtro head, selezionare la prima linea del file p.txt.**
 ```shell
 
 ```
-****
+**28) Usando la ridirezione dello standard input e il comando-filtro head, selezionare le prime 3 linee del file p.txt.**
 ```shell
 
 ```
-****
+**29) Usando la ridirezione dello standard input e il comando-filtro tail, selezionare le ultime 10 linee del file p.txt.**
 ```shell
 
 ```
-****
+**30) Usando la ridirezione dello standard input e il comando-filtro tail, selezionare l’ultima linea del file p.txt.**
 ```shell
 
 ```
-****
+**31) Usando la ridirezione dello standard input e il comando-filtro tail, selezionare le ultime 3 linee del file p.txt.**
 ```shell
 
 ```
-****
+**32) Utilizzando la soluzione di uno degli esercizi precedenti su HEAD e TAIL, ridirigere lo standard output in un file
+di nome prova-head o prova-tail a seconda dei casi.**
 ```shell
 
 ```
-****
+**33) Facendo riferimento ad uno qualunque degli esercizi precedenti sui comandi-filtro HEAD e TAIL (anche per
+tutti), provare anche le versioni comando HEAD e TAIL e quindi senza ridirezione dello standard input!
+Attenzione però che per produrre dei risultati che vanno salvati, come nel punto 32), la ridirezione dello
+standard output invece va usata.**
 ```shell
 
 ```
-****
+**34) Utilizzando il piping dei comandi, isolare in un file di nome p.txt.terza la terza linea a partire dall’inizio del file
+p.txt.**
 ```shell
 
 ```
-****
+**35) Utilizzando il piping dei comandi, isolare in un file di nome p.txt.terzultima la terza linea a partire dalla fine del
+file p.txt.**
 ```shell
 
 ```
-****
+## REV
+**36) Usando la ridirezione dello standard input e il comando-filtro rev, verificarne il funzionamento su almeno uno
+dei file a disposizione.**
 ```shell
 
 ```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
-****
-```shell
-
-```
+## METACARATTERI [e]
 ****
 ```shell
 
