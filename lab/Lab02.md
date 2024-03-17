@@ -10,7 +10,7 @@ contenuto sia importante farne prima una copia, casomai preservando i timestamps
     cp -p file filedicopia
 ```
 ```shell
-    cat > filedicopia
+    > filedicopia
 ```
 **2) Usando la sola ridirezione dello standard output, creare un file con un nome non esistente nella directory di
 sistema tmp.**
@@ -18,7 +18,7 @@ sistema tmp.**
   cd /
 ```
 ```shell
-  cat > /tmp/file
+  > /tmp/file
 ```
 ## SORT
 **3) Per questo esercizio usare il file di nome prova (quello creato nella precedente esercitazione), ma prima di
@@ -139,7 +139,7 @@ nella precedente esercitazione).**
 ```
 **21) Usando la ridirezione dello standard input e il comando-filtro wc, contare i caratteri del file p.txt.**
 ```shell
-    wc -m < p.txt
+    wc -c < p.txt
 ```
 **22) Usando la ridirezione dello standard input e il comando-filtro wc, contare le parole del file p.txt.**
 ```shell
@@ -148,12 +148,15 @@ nella precedente esercitazione).**
 **23) Verificare che cosa cambia nell’output dei precedenti 3 esercizi se invece che il comando-filtro wc si usa il
 comando wc!**
 ```shell
-    error
+    wc -l p.txt
+```
+```
+    [ viene riportato anche il nome del file ]
 ```
 **24) Usando il comando wc su un file di nome pippo (che non deve esistere) e ridirigendo lo standard error su
 /dev/null, verificare il valore di ritorno del comando.**
 ```shell
-    wc pippo > /dev/null >&1
+    wc -l pippo 2> /dev/null
 ```
 ```shell
     echo $?
@@ -259,7 +262,7 @@ eseguire il file comandi prova.sh visto a lezione (scaricabile da GITHUB). Quale
 ```
 ```
     Il valore della variabile a è
-    Il valore del comando PATH               /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    Il valore del comando PATH               /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
     Il valore del comando HOME /Users/marin
 ```
 **41) Rendere la variabile a variabile di ambiente e riprovare ad eseguire prova.sh. Quale è il risultato?**
@@ -268,7 +271,7 @@ eseguire il file comandi prova.sh visto a lezione (scaricabile da GITHUB). Quale
 ```
 ```
     Il valore della variabile a è 10
-    Il valore del comando PATH               /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    Il valore del comando PATH               /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
     Il valore del comando HOME /Users/marin
 ```
 **42) Verificare con il comando env, la presenza della variabile a nell’ambiente.**
@@ -281,7 +284,7 @@ eseguire il file comandi prova.sh visto a lezione (scaricabile da GITHUB). Quale
 ```
 ```
     Il valore della variabile a è 10
-    Il valore del commando PATH     /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    Il valore del commando PATH     /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
     Il valore del commando HOME /Users/marin
     Il valore della variabile a ora è hello
 ```
@@ -297,8 +300,8 @@ il risultato?**
 ```
     + echo Il valore della variabile a è 10
     Il valore della variabile a è 10
-    + echo Il valore del commando PATH /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
-    Il valore del commando PATH     /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/v     r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    + echo Il valore del commando PATH /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    Il valore del commando PATH     /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
     + echo Il valore del commando HOME /Users/marin
     Il valore del commando HOME /Users/marin
     + a=hello
@@ -314,7 +317,7 @@ risultato?**
     SONO UN ALTRO ESEMPIO SEMPLICE DI FILE COMANDI
     La directory di partenza quindi la HOME directory
     /Users/marin
-    la PATH     /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/va    r/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
+    la PATH     /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Library/Apple/usr/bin
     La PATH /
     La directory corrente
     /Users/marin/Documents/UNIMORE 2^anno/SISTEMI OPERATIVI/shell/mer.13.03.2024
@@ -348,7 +351,7 @@ risultato?**
 valore. Provare anche ad effettuare tutte le altre operazioni aritmetiche e quindi sottrazione, moltiplicazione,
 divisione intera e resto intero della divisione!**
 ```shell
-    z=$x+$y
+    z=`expr $x + $y`
 ```
 ```shell
     echo $z
@@ -358,9 +361,9 @@ inserendo anche dei commenti significativi. Rendere eseguibile tale file comandi
 con ls –l prova-variabili.sh) e mandarlo in esecuzione. Quale è il risultato?**
 ```shell
     #!/bin/zsh
-    echo $x
-    echo $y
-    echo $z
+    echo Il valore della variabile x = $x
+    echo Il valore della variabile y = $y
+    echo Il valore della variabile z = $z
 ```
 ```shell
     chmod u+x prova-variabili.sh
@@ -387,5 +390,9 @@ fondo un comando che modifica il valore della variabile z e un comando che visua
 sempre inserendo commenti significativi. Provare ad eseguire prova-variabili-bis.sh. Quale è il risultato? Quale
 valore ha la variabile z nella shell interattiva di partenza?**
 ```shell
-
+    cp prova-variabili.sh prova-variabili-bis.sh
+```
+```shell
+    z=5
+    echo Il nuovo valore della variabile z = $z
 ```
