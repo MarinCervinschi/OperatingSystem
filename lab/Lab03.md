@@ -115,18 +115,18 @@ con un solo parametro (CONTROLLO DEI PARAMETRI STRETTO). Verificarne il funziona
     nano DIRCTL.sh
 ```
 ```shell
-    #!/bin/sh
-    if      test $# -ne 1
-    then 
-            echo $# non è il numero di parametri giusto
-            exit 1  
-    else
-            echo SONO DIR.sh
-            echo 'Il valore di $0 ===>' $0
-            echo 'Il valore di $1 ===>' $1
-            echo "DEBUG-Ora eseguo ls -l $1"
-            ls -l $1
-    fi
+#!/bin/zsh
+if    test $# -ne 1
+then
+    echo $# non è il numero di parametri giusto
+    exit 1
+else
+    echo SONO DIR.sh
+    echo 'Il valore di $0 ===>' $0
+    echo 'Il valore di $1 ===>' $1
+    echo "DEBUG-Ora eseguo ls -l $1"
+    ls -l $1
+fi
 ```
 ```shell
     chmod u+x DIRCTL.sh
@@ -165,7 +165,7 @@ il nome di un file il comportamento dovrà essere lo stesso di prima! Verificarn
     nano DIRCTL1.sh
 ```
 ```shell
-    #!/bin/sh
+    #!/bin/zsh
 if      test $# -ne 1
 then 
         echo $# non è il numero di parametri giusto
@@ -188,13 +188,6 @@ then
         ls -dl $1
 fi
 ```
-```shell
-
-
-```
-```shell
-
-```
 **8) Copiare il file comandi DIRCTL1.sh dell’esercizio precedente nel file comandi di nome DIRCTL2.sh;
 aggiungere che, nel caso non si passino parametri (CONTROLLO DEI PARAMETRI LASCO), si devono visualizzare
 tutte le informazioni dei file e delle sottodirectory della directory corrente, in forma paginata. Osservazione:
@@ -205,56 +198,108 @@ corrispondente del case), il caso 1 parametro (corretto e in cui nel seguito, ci
 quanto si faceva nel file DIRCTL1.sh), i casi 2 o più parametri, che come prima dovrà riportare una indicazione
 di errore (casi NON corretti). Verificarne il funzionamento per i vari casi.**
 ```shell
-
+    cp -p DIRCTL1.sh DIRCTL2.sh
 ```
 ```shell
-
+    nano DIRCTL2.sh
 ```
 ```shell
-
-```
-```shell
-
-```
-```shell
-
+#!/bin/zsh
+case $# in
+0)      echo `ls -Rl`;;
+1)      if      test -f $1
+        then
+                echo SONO DIRCTL1.sh e sono un file
+                echo 'Il valore di $0 ===>' $0
+                echo 'Il valore di $1 ===>' $1
+                echo "DEBUG-Ora eseguo ls -l $1"
+                ls -l $1
+        fi
+        if      test -d $1
+        then
+                echo SONO DIRCTL1.sh e sono una directory
+                echo 'Il valore di $0 ===>' $0  
+                echo 'Il valore di $1 ===>' $1  
+                echo "DEBUG-Ora eseguo ls -dl $1"
+                ls -dl $1
+        fi;;
+*)      echo $# non è il numero di parametri giusto
+        exit 1;;
+esac
 ```
 **9) Con un editor, scrivere un file comandi di nome un-solo-parametro.sh che accetti un solo parametro
 (CONTROLLO DEI PARAMETRI STRETTO) e, in tale caso, riporti sullo standard output se tale parametro
 rappresenta un nome assoluto, relativo, o relativo semplice. Verificarne il funzionamento per i tre casi.**
 ```shell
-
+    nano un-solo-parametro.sh
 ```
 ```shell
+#!/bin/zsh
+case $# in
 
+1)      case $1 in
+        /*) echo Il percorso di $1 è assoluto.;;
+        */*) echo Il persorso di $1 è relativo.;;
+        *)echo Il persorso di $1 è semplice.;;
+        esac;;
+*) echo $# non è il numero di parametri giusto
+   exit 1;;
+esac
 ```
 ```shell
-
+    chmod u+x un-solo-parametro.sh
 ```
 ```shell
-
+    ./un-solo-parametro.sh p.txt
+```
+```
+    Il percorso di p.txt è semplice.
+```
+```shell
+    ./un-solo-parametro.sh dirProva/p.txt
+```
+```
+    Il percorso di dirProva/p.txt è relativo.
+```
+```shell
+    ./un-solo-parametro.sh /Users/marin/files/p.txt
+```
+```
+    Il percorso di /Users/marin/files/p.txt è assoluto.
 ```
 **10) Copiare il file comandi un-solo-parametro.sh dell’esercizio precedente nel file comandi di nome un-
 solo-parametro-bis.sh; aggiungere SOLO nel caso il nome sia assoluto, il controllo sul ‘tipo’ di
 parametro e cioè se è un file o una directory traversabile o nessuno dei due casi. Verificarne il funzionamento
 per i vari casi.**
 ```shell
-
+    cp -p un-solo-parametro.sh un-solo-parametro-bis.sh
 ```
 ```shell
-
+#!/bin/zsh
+case $# in
+1)      case $1 in
+        /*) echo Il percorso di $1 è assoluto.
+                if test -f $1
+                then
+                        echo Sono un file
+                elif test ! -d $1 -a ! -x $1
+                then
+                        echo Sono una directory traversabile
+                else
+                        echo Non sono nè un file nè una directory traversabile
+                fi;;
+        */*) echo Il persorso di $1 è relativo.;;
+        *)echo Il persorso di $1 è semplice.;;
+        esac;;
+*) echo $# non è il numero di parametri giusto
+   exit 1;;
+esac
 ```
 ```shell
-
+    chmod u+x un-solo-parametro-bis.sh
 ```
 ```shell
-
-```
-```shell
-
-```
-```shell
-
+    ./un-solo-parametro-bis.sh
 ```
 **11) Con un editor, scrivere un file comandi di nome trova-file.sh che controlli di essere invocato
 esattamente con 1 parametro (CONTROLLO DEI PARAMETRI STRETTO) e che tale parametro deve essere un
@@ -262,19 +307,33 @@ nome relativo semplice (come fatto nei due esercizi precedenti). Quindi, dopo la
 e ‘tipo’ di parametri, lo script deve verificare se nella directory corrente esiste un file il cui nome è passato
 come parametro e ne deve stampare il nome assoluto.**
 ```shell
-
+    nano trova-file.sh
 ```
 ```shell
-
+#!/bin/zsh
+case $# in
+1)      case $1 in
+        /*) echo Il percorso di $1 è assoluto.
+           exit 1;;
+        */*) echo Il persorso di $1 è relativo.
+                exit 2;;
+        *)echo Il persorso di $1 è semplice.
+                if test -f $1
+                then
+                        echo Il percorso è `pwd`/$1
+                else
+                        echo Il file non è presente nella direcotry attuale.
+                fi;;
+        esac;;
+*) echo $# non è il numero di parametri giusto
+   exit 1;;
+esac
 ```
 ```shell
-
+    chmod u+x trova-file.sh
 ```
 ```shell
-
-```
-```shell
-
+    ./trova-file.sh p.txt
 ```
 **12) Con un editor, scrivere un file comandi di nome append.sh che deve accettare uno o due parametri
 (CONTROLLO DEI PARAMETRI LASCO), che devono essere nomi di file (in qualunque forma,
