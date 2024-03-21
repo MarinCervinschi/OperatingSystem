@@ -314,7 +314,7 @@ come parametro e ne deve stampare il nome assoluto.**
 case $# in
 1)      case $1 in
         /*) echo Il percorso di $1 è assoluto.
-           exit 1;;
+                exit 1;;
         */*) echo Il persorso di $1 è relativo.
                 exit 2;;
         *)echo Il persorso di $1 è semplice.
