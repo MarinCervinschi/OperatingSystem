@@ -87,37 +87,71 @@ andando a inibire SOLO l’ultima sostituzione. Mandarlo nuovamente in esecuzion
 **5) Con un editor, scrivere un file comandi di nome provaExit.sh che semplicemente contenga il comando
 exit invocato con valore negativo (ad esempio -1). Verificarne il funzionamento e giustificare il valore ottenuto!**
 ```shell
-
+    nano provaExit.sh
 ```
 ```shell
-
+    #!/bin/zsh
+    exit -1
 ```
 ```shell
-
+    chmod u+x provaExit.sh
 ```
 ```shell
-
+    ./provaExit.sh
 ```
 ```shell
-
+    echo $?
+```
+```
+    255
 ```
 **6) Copiare1 il file comandi DIR.sh visto a lezione (scaricabile da GITHUB) nel file comandi di nome DIRCTL.sh
 e quindi, con un editor, aggiungere come prima cosa il controllo che il file comandi sia eseguito esattamente
 con un solo parametro (CONTROLLO DEI PARAMETRI STRETTO). Verificarne il funzionamento per i vari casi.**
 ```shell
-
+    cp -p DIR.sh DIRCTL.sh
 ```
 ```shell
-
+    nano DIRCTL.sh
 ```
 ```shell
-
+    #!/bin/sh
+    if      test $# -ne 1
+    then 
+            echo $# non è il numero di parametri giusto
+            exit 1  
+    else
+            echo SONO DIR.sh
+            echo 'Il valore di $0 ===>' $0
+            echo 'Il valore di $1 ===>' $1
+            echo "DEBUG-Ora eseguo ls -l $1"
+            ls -l $1
+    fi
 ```
 ```shell
-
+    chmod u+x DIRCTL.sh
 ```
 ```shell
-
+    ./DIRCTL.sh 
+```
+```
+    0 non è il numero di parametri giusto
+```
+```shell
+    ./DIRCTL.sh p.txt
+```
+```
+    SONO DIR.sh
+    Il valore di $0 ===> ./DIRCTL.sh
+    Il valore di $1 ===> p.txt
+    DEBUG-Ora eseguo ls -l p.txt
+    -rw-r--r--@ 1 marin  staff  17 14 Mar 11:02 p.txt
+```
+```shell
+    ./DIRCTL.sh p.txt 2
+```
+```
+    2 non è il numero di parametri giusto
 ```
 **7) Copiare il file comandi DIRCTL.sh dell’esercizio precedente nel file comandi di nome DIRCTL1.sh e
 quindi, con un editor, aggiungere (dopo il controllo sul numero di parametri) il controllo se il parametro è un
@@ -125,15 +159,37 @@ file o una directory, adattando il codice ai due diversi casi: in particolare, n
 directory, si dovranno visualizzare le informazioni della directory vista come file, mentre nel caso sia passato
 il nome di un file il comportamento dovrà essere lo stesso di prima! Verificarne il funzionamento per i vari casi.**
 ```shell
-
+     cp -p DIRCTL.sh DIRCTL1.sh
+```
+```shell
+    nano DIRCTL1.sh
+```
+```shell
+    #!/bin/sh
+if      test $# -ne 1
+then 
+        echo $# non è il numero di parametri giusto
+        exit 1
+fi
+if      test -f $1
+then
+        echo SONO DIRCTL1.sh e sono un file
+        echo 'Il valore di $0 ===>' $0
+        echo 'Il valore di $1 ===>' $1
+        echo "DEBUG-Ora eseguo ls -l $1"
+        ls -l $1
+fi
+if      test -d $1
+then
+        echo SONO DIRCTL1.sh e sono una directory
+        echo 'Il valore di $0 ===>' $0  
+        echo 'Il valore di $1 ===>' $1  
+        echo "DEBUG-Ora eseguo ls -dl $1"
+        ls -dl $1
+fi
 ```
 ```shell
 
-```
-```shell
-
-```
-```shell
 
 ```
 ```shell
@@ -270,3 +326,6 @@ di file NON esistenti!**
 ```shell
 
 ```
+
+
+
