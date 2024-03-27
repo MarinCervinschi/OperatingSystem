@@ -1,29 +1,67 @@
-Use the following commands in command mode:
+Neovim Cheatsheet
 
-h - Moves the cursor to the left by one character; you can also press the left arrow.
-j - Moves the cursor one line down; you can also press the down arrow.
-k - Moves the cursor one line up; you can also press the up arrow.
-l - Moves the cursor to the right by one character; you can also press the right arrow.
+Moving Around:
+h - Move cursor left
+j - Move cursor down
+k - Move cursor up
+l - Move cursor right
+0 - Move cursor to beginning of line
+^ - Move cursor to first non-whitespace character of line
+$ - Move cursor to end of line
+gg - Move cursor to beginning of the file
+G - Move cursor to end of the file
+5G - Move cursor to line number 5
 
-w - Moves the cursor one full word to the right.
-b - Moves the cursor one full word to the left.
-0 - Moves the cursor to the beginning of the current line.
-$ - Moves the cursor to the end of the current line.
+File Management:
+:e filename - Open file for editing
+:w - Save current buffer to disk
+:w filename - Save current buffer to filename
+:q - Close the current window
+:wq - Save and close the current window
+:q! - Close the current window without saving
+:wa - Save all open buffers to disk
 
-~ - Changes the case of the current character.
-dd - Deletes the current line.
-D - Deletes everything on the line to the right of the cursor’s current position.
-x - Deletes the current character.
+Editing Commands I:
+i - Enter Insert mode before the cursor
+a - Enter Insert mode after the cursor
+I - Enter Insert mode at beginning of the line
+A - Enter Insert mode at the end of the line
+o - Insert a new line below the current line and enter Insert mode
+O - Insert a new line above the current line and enter Insert mode
 
-u - Undo the last command.
-. - Repeats the last command.
+Editing Commands II:
+dd - Delete the current line
+D - Delete from the cursor to the end of the line
+C - Change from the cursor to the end of the line and enter Insert mode
+u - Undo the last change
+cw - Change from cursor to end of word and enter Insert mode
+cb - Change from cursor to beginning of word and enter Insert mode
 
-:w - Saves current file, but does not exit.
-:wq - Saves current file, and quits.
+Visual Mode Commands:
+v - Enter Visual mode and select text character by character
+V - Enter Visual mode and select text line by line
+y - Yank (copy) the selected line
+d - Delete the selected text
+c - Change the selected text and enter Insert mode
 
-The following commands place you into insert mode:
+Search and Replace:
+/ - Search forward for a pattern
+? - Search backward for a pattern
+n - Repeat the last search in the same direction
+N - Repeat the last search in the opposite direction
+:%s/pattern/replacement/g - Replace all occurrences of 'pattern' with 'replacement' in the entire file
 
-i - Inserts to the left of the current cursor position.
-a - Appends to the right of the current cursor position.
-dw - Deletes the current word.
-cw - Changes the current word.
+Macros and Registers:
+qa - Start recording a macro in register 'a'
+q - Stop recording a macro
+@a - Execute the macro stored in register 'a'
+" - Access a specific register
+"ay - Yank into register 'a'
+
+Splits and Tabs:
+:sp - Split the window horizontally
+:vsp - Split the window vertically
+:tabe - Create a new tab
+:tabc - Close the current tab
+:tabn - Go to the next tab
+:tabp - Go to the previous tab
