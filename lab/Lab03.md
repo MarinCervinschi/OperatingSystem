@@ -13,9 +13,11 @@ capire all’utente che cosa si sta visualizzando! Verificarne il funzionamento.
   nano prova-comandi.sh
 ```
 ```shell
-  #!/bin/zsh
-  echo Il nome assoluto del file p.txt è `pwd`/p.txt
-  echo La directory corrente è `pwd`
+#!/bin/zsh
+#File prova-comandi.sh
+echo Nome assoluto del file p.txt: `pwd`/p.txt
+echo Directory corrente `pwd`
+echo DEBUG-Directory corrente `pwd`
 ```
 ```shell
   chmod u+x prova-comandi.sh
@@ -165,25 +167,24 @@ il nome di un file il comportamento dovrà essere lo stesso di prima! Verificarn
     nano DIRCTL1.sh
 ```
 ```shell
-    #!/bin/zsh
+!/bin/zsh
+#File DIRCTL1.sh
 if      test $# -ne 1
-then 
+then
         echo $# non è il numero di parametri giusto
         exit 1
-fi
-if      test -f $1
+elif    test -f $1
 then
         echo SONO DIRCTL1.sh e sono un file
         echo 'Il valore di $0 ===>' $0
         echo 'Il valore di $1 ===>' $1
         echo "DEBUG-Ora eseguo ls -l $1"
         ls -l $1
-fi
-if      test -d $1
+elif    test -d $1
 then
         echo SONO DIRCTL1.sh e sono una directory
-        echo 'Il valore di $0 ===>' $0  
-        echo 'Il valore di $1 ===>' $1  
+        echo 'Il valore di $0 ===>' $0
+        echo 'Il valore di $1 ===>' $1
         echo "DEBUG-Ora eseguo ls -dl $1"
         ls -dl $1
 fi
@@ -205,8 +206,12 @@ di errore (casi NON corretti). Verificarne il funzionamento per i vari casi.**
 ```
 ```shell
 #!/bin/zsh
+#File DIRCTL2.sh
 case $# in
-0)      echo `ls -Rl`;;
+0)      echo non sono stati passati parametri
+        echo DEBUG-eseguo 'ls -l' paginato nella directory corrente
+        ls -l | more
+        exit 0;;
 1)      if      test -f $1
         then
                 echo SONO DIRCTL1.sh e sono un file
@@ -214,12 +219,11 @@ case $# in
                 echo 'Il valore di $1 ===>' $1
                 echo "DEBUG-Ora eseguo ls -l $1"
                 ls -l $1
-        fi
-        if      test -d $1
+        elif      test -d $1
         then
                 echo SONO DIRCTL1.sh e sono una directory
-                echo 'Il valore di $0 ===>' $0  
-                echo 'Il valore di $1 ===>' $1  
+                echo 'Il valore di $0 ===>' $0
+                echo 'Il valore di $1 ===>' $1
                 echo "DEBUG-Ora eseguo ls -dl $1"
                 ls -dl $1
         fi;;
@@ -235,6 +239,7 @@ rappresenta un nome assoluto, relativo, o relativo semplice. Verificarne il funz
 ```
 ```shell
 #!/bin/zsh
+#File un-solo-parametro.sh
 case $# in
 
 1)      case $1 in
@@ -276,13 +281,14 @@ per i vari casi.**
 ```
 ```shell
 #!/bin/zsh
+#File un-solo-parametro-bis.sh
 case $# in
 1)      case $1 in
         /*) echo Il percorso di $1 è assoluto.
                 if test -f $1
                 then
                         echo Sono un file
-                elif test ! -d $1 -a ! -x $1
+                elif test -d $1 -a -x $1
                 then
                         echo Sono una directory traversabile
                 else
@@ -311,6 +317,7 @@ come parametro e ne deve stampare il nome assoluto.**
 ```
 ```shell
 #!/bin/zsh
+#File trova-file.sh
 case $# in
 1)      case $1 in
         /*) echo Il percorso di $1 è assoluto.
