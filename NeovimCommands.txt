@@ -1,0 +1,29 @@
+Use the following commands in command mode:
+
+h - Moves the cursor to the left by one character; you can also press the left arrow.
+j - Moves the cursor one line down; you can also press the down arrow.
+k - Moves the cursor one line up; you can also press the up arrow.
+l - Moves the cursor to the right by one character; you can also press the right arrow.
+
+w - Moves the cursor one full word to the right.
+b - Moves the cursor one full word to the left.
+0 - Moves the cursor to the beginning of the current line.
+$ - Moves the cursor to the end of the current line.
+
+~ - Changes the case of the current character.
+dd - Deletes the current line.
+D - Deletes everything on the line to the right of the cursor’s current position.
+x - Deletes the current character.
+
+u - Undo the last command.
+. - Repeats the last command.
+
+:w - Saves current file, but does not exit.
+:wq - Saves current file, and quits.
+
+The following commands place you into insert mode:
+
+i - Inserts to the left of the current cursor position.
+a - Appends to the right of the current cursor position.
+dw - Deletes the current word.
+cw - Changes the current word.
