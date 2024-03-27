@@ -350,9 +350,53 @@ del file il cui nome è passato come primo parametro deve essere scritto in appe
 come secondo parametro. Verificarne il funzionamento per i due casi, sia passando nomi di file esistenti che
 di file NON esistenti!**
 ```shell
-
+    nv append.sh
 ```
-****
+```shell
+#!/bin/zsh
+#File append.sh
+if test $# -gt 2
+then
+        echo Il numero di parametri $# non è correto
+        exit 1
+fi
+
+case $# in
+1)      if test -f $1
+        then
+                echo Sono $1 e sono un file
+                cat >> $1
+        else
+                echo ERROR: $1 non è un file
+                echo 2
+        fi;;
+2)      if test -f $1 -a -f $2
+        then
+                cat < $1 >> $2
+        else
+                if test -f $1
+                then
+                        echo ERROR: $2 non è un file
+                        exit 2
+                else
+                        echo ERROR: $1 non è un file
+                        exit 2
+                fi
+        fi
+esac
+```
+```shell
+    chmod u+x append.sh
+```
+```shell
+    ./append.sh first second
+```
+**13) Con un editor, scrivere un file comandi di nome append1.sh che si deve comportare in modo simile al file
+comandi append.sh, ma deve prevedere esattamente due parametri (CONTROLLO DEI PARAMETRI
+STRETTO); devono essere poi introdotti diversi controlli: a) i due parametri devono essere nomi relativi
+semplici; b) il file il cui nome è passato come primo parametro deve esistere ed essere leggibile; c) il file il cui
+nome è passato come secondo parametro, se esiste, deve essere scrivibile, altrimenti se non esiste si deve
+verificare che la directory corrente sia scrivibile. Verificarne il funzionamento nei vari casi.**
 ```shell
 
 ```
