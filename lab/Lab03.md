@@ -167,7 +167,7 @@ il nome di un file il comportamento dovrà essere lo stesso di prima! Verificarn
     nano DIRCTL1.sh
 ```
 ```shell
-!/bin/zsh
+#!/bin/zsh
 #File DIRCTL1.sh
 if      test $# -ne 1
 then
@@ -398,41 +398,291 @@ semplici; b) il file il cui nome è passato come primo parametro deve esistere e
 nome è passato come secondo parametro, se esiste, deve essere scrivibile, altrimenti se non esiste si deve
 verificare che la directory corrente sia scrivibile. Verificarne il funzionamento nei vari casi.**
 ```shell
-
+    nv append1.sh
 ```
-****
+```shell
+#!/bin/zsh
+#File append1.sh
+if test $# -eq 2
+then
+	# controllo [a]
+	for i
+	do
+		case $i in
+			*/*) 	echo ERROR: il percorso "($1)" non è relativo semplice
+			exit 2;;
+		esac
+	done
+
+	# controllo [b]
+	if ! test -r $1
+	then
+		echo ERROR: il file "($1)" non esiste o non è leggibile
+		exit 3
+	fi
+
+	# controllo [c]
+	if ! test -w $2
+	then
+		echo ERROR: il file "($2)" non esiste o non è scrivibile
+		exit 4
+	else
+		if ! test -w .
+		then
+			echo ERROR: la directory corrente non è scrivibile
+			exit 5
+		fi
+	fi
+
+	# dopo i controlli implementiamo il funzionamento di append
+	cat < $1 >> $2
+	
+else
+	echo ERROR: Il numero di parametri "($#)" è sbagliato
+	exit 1
+fi
+```
+```shell
+    chmod u+x append1.sh
+```
+```shell
+    ./append1.sh first second
+```
+**14) Con un editor, scrivere un file comandi di nome tutti-par.sh che, dopo aver controllato che il numero di
+parametri sia maggiore o uguale a 1 (CONTROLLO DEI PARAMETRI LASCO), riporti su standard output tutti i
+parametri passati sia in forma aggregata che un parametro per volta. Verificarne il funzionamento nei vari casi.**
+```shell
+    nv tutti-par.sh
+```
+```shell
+#!/bin/zsh
+#File tutti-par.sh
+# controllo dell'input
+if test $# -lt 1
+then
+	echo ERROR: il numero di parametri "($#)" è sbagliato
+	exit 1
+fi
+
+echo Parametri in forma aggregata: $*
+echo Parametri uno per volta
+for i in $*
+do
+	echo Parametro = $i
+done
+```
+```shell
+    chmod u+x tutti-par.sh
+```
+```shell
+    ./tutti-par.sh vari comandi di verifica
+```
+**15) Copiare il file comandi tutti-par.sh dell’esercizio precedente nel file comandi di nome tutti-par-
+bis.sh; aggiungere, all’interno del ciclo in cui si riporta su standard output il valore di ogni parametro
+passato, l’indicazione del loro ‘nome’ ($1, $2, etc.). SUGGERIMENTO: Usare un contatore e poi stamparne il
+valore insieme con \$. Verificarne il funzionamento.**
+```shell
+    cp -p tutti-par.sh tutti-par-bis.sh
+```
+```shell
+    nv tutti-par-bis.sh
+```
+```shell
+#!/bin/zsh
+#File tutti-par-bis.sh
+# controllo dell'input
+if test $# -lt 1
+then
+	echo ERROR: il numero di parametri "($#)" è sbagliato
+	exit 1
+fi
+
+echo Parametri in forma aggregata: $*
+echo Parametri uno per volta
+j=1
+for i
+do
+	echo Parametro \$$j = $i
+	j=`expr $j + 1`
+done
+```
+```shell
+    ./tutti-par.sh vari comandi di verifica
+```
+**16) Copiare il file comandi LeggiEMostra.sh visto a lezione (scaricabile da GITHUB) nel file comandi di nome
+LeggiEMostra1.sh; con un editor, modificare la parte di controllo dei parametri in modo da poter
+funzionare per un numero di parametri maggiore o uguale a 1 (CONTROLLO DEI PARAMETRI LASCO); quindi
+su ogni parametro passato svolgere le stesse azioni presenti in LeggiEMostra.sh, ma usando un case per
+verificare la risposta dell’utente (come fatto nel file comandi readCase.sh visto a lezione e sempre
+scaricabile da GITHUB). Verificarne il funzionamento nei vari casi.**
+```shell
+    cp -p LeggiEMostra.sh LeggiEMostra1.sh
+```
+```shell
+    nv LeggiEMostra1.sh
+```
+```shell
+#!/bin/zsh
+#file comandi LeggiEMostra1.sh
+#CONTROLLO SU PRESENZA DI ALMENO UN PARAMETRO
+if test $# -lt 1
+then 	echo Errore: voglio almeno un parametro
+	exit 1
+fi
+
+#chiediamo all'utente se vuole visualizzare il contenuto del file: N.B. forziamo l'output sul terminale corrente per non avere problemi se si usasse la ridirezione dello standard output
+for i
+do
+	# controlliamo che il parametro sia un file leggibile
+	if test ! -r $i
+        then
+                echo Errore: $i non file oppure non leggibile
+                exit 2
+        fi
+
+	printf "vuoi visualizzare il file $i (y/n)? " >&1
+	#leggiamo la risposta dell'utente
+	read risposta
+
+	#usiamo in questo caso un case per vincolare meno l'utente nelle risposte!
+        case $risposta in
+        S* | s* | Y* | y*)      echo info del file $i
+                                ls -la $i       #potrebbe anche essere un nome che inizia con .                                			  # echo contenuto del file $i
+                                cat $i;;
+        *) echo niente stampa di $i;;
+        esac
+done
+```
+```shell
+./LeggiEMostra.sh pippo prova-comandi.sh un-solo-parametro.sh
+```
+**17) Copiare il file comandi for1.sh visto a lezione (scaricabile da GITHUB) nel file comandi di nome
+for1Bis.sh; con un editor, modificare il codice in modo che il corpo del ciclo sia eseguito solo per i nomi
+dei file/directory nascosti. Verificarne il funzionamento, dopo aver verificato di avere almeno un file nascosto.**
+```shell
+    cp -p for1.sh for1Bis.sh
+```
+```shell
+    nv for1Bis.sh
+```
+```shell
+#!/bin/zsh
+#File for1Bis.sh
+for i in .*	#per tutti i file/directory nascosti della directory corrente
+do
+	echo ELEMENTO CORRENTE $i	#visualizziamo il nome del file/directory
+done
+```
+```shell
+    ./for1Bis.sh
+```
+**18) Copiare, nuovamente, il file comandi for1.sh visto a lezione (scaricabile da GITHUB) nel file comandi di
+nome for2.sh ; con un editor, modificare il codice in modo che il corpo del ciclo sia eseguito solo per i nomi
+che iniziano con la lettera ‘p’ (nella directory corrente) e, nel caso il nome corrisponda ad un file, si deve anche
+visualizzarne il contenuto, mentre se è una directory bisogna segnalarlo. Verificarne il funzionamento.**
+```shell
+    cp -p for1.sh for2.sh
+```
+```shell
+    nv for2.sh
+```
+```shell
+#!/bin/zsh
+#File for2.sh
+for i in p*	#per tutti i file/directory che cominciano con la 'p'della directory corrente
+do
+	if test -f $i
+	then
+		echo Sono "($i)" e sono un file
+		echo "==="
+		cat < $i
+		echo "==="
+	else
+		echo Sono "($i)" e sono una directory
+	fi
+done
+```
+```shell
+    ./for2.sh
+```
+**19) Copiare il file comandi for2.sh dell’esercizio precedente nel file comandi di nome for2Bis.sh;
+aggiungere, nel caso il nome che inizia con la lettera ‘p’ sia quello di un file, la scrittura del suo nome assoluto
+in append su file di nome /tmp/t. Verificarne il funzionamento e in particolare ricavare il numero di file trovati.
+Cosa succede se si esegue nuovamente for2Bis.sh?**
+```shell
+    cp -p for2.sh for2Bis.sh
+```
+```shell
+    nv for2Bis.sh
+```
+```shell
+#!/bin/zsh
+#File for2Bis.sh
+for i in p*	#per tutti i file/directory che cominciano con la 'p'della directory corrente
+do
+	if test -f $i
+	then
+		echo Sono "($i)" e sono un file
+		echo "==="
+		cat < $i
+		echo "==="
+		echo `pwd`/$i >> /tmp/t
+	else
+		echo Sono "($i)" e sono una directory
+	fi
+done
+```
+```shell
+    ./for2Bis.sh
+```
+**20) Copiare il file comandi for4Bis.sh visto a lezione (scaricabile da GITHUB) nel file comandi di nome
+for4Ter.sh con l’obiettivo di rendere più generale il codice: infatti, il nome del file usato per l’esecuzione
+di for4Bis.sh deve essere un parametro di invocazione di for4Ter.sh. Quindi, si deve prevedere un
+controllo sul numero dei parametri che deve essere esattamente uguale a 1 (CONTROLLO DEI PARAMETRI
+STRETTO) e quindi il controllo che tale singolo parametro sia il nome relativo semplice di un file. Sul contenuto
+del file passato come parametro si deve svolgere il for presente in for4Bis.sh. Per verificare il
+funzionamento di questo script, innanzitutto si creino 3 file di testo con nome pippo.txt (con 4 linee), pluto.txt
+(con 3 linee) e paperino.txt (con 6 linee), poi si crei un file di nome temp che deve avere il formato del file t
+usato a lezione. Si verifichi quindi il funzionamento di for4Ter.sh passando il file temp.**
 ```shell
 
 ```
-****
 ```shell
 
 ```
-****
 ```shell
 
 ```
-****
 ```shell
 
 ```
-****
 ```shell
 
 ```
-****
 ```shell
 
 ```
-****
 ```shell
 
 ```
-****
 ```shell
 
 ```
-****
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
 ```shell
 
 ```
