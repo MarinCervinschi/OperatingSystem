@@ -29,7 +29,7 @@ echo DEBUG-Directory corrente `pwd`
 scrivere un file comandi prova-inibizioni.sh che assegna ad una variabile di shell di nome a la stringa
 ciao; quindi visualizzare con un unico comando echo il valore della variabile a, della directory corrente e della
 espansione del metacarattere \*. Inserire dei commenti significativi. Rendere eseguibile il file comandi e
-mandarlo in esecuzione. Quale è il risultato?**cp
+mandarlo in esecuzione. Quale è il risultato?**
 ```shell
   nano prova-inibizioni.sh
 ```
