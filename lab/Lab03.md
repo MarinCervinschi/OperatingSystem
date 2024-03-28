@@ -554,7 +554,7 @@ do
 done
 ```
 ```shell
-./LeggiEMostra.sh pippo prova-comandi.sh un-solo-parametro.sh
+	./LeggiEMostra.sh pippo prova-comandi.sh un-solo-parametro.sh
 ```
 **17) Copiare il file comandi for1.sh visto a lezione (scaricabile da GITHUB) nel file comandi di nome
 for1Bis.sh; con un editor, modificare il codice in modo che il corpo del ciclo sia eseguito solo per i nomi
@@ -645,6 +645,264 @@ funzionamento di questo script, innanzitutto si creino 3 file di testo con nome 
 (con 3 linee) e paperino.txt (con 6 linee), poi si crei un file di nome temp che deve avere il formato del file t
 usato a lezione. Si verifichi quindi il funzionamento di for4Ter.sh passando il file temp.**
 ```shell
+ 	cp -p for4Bis.sh for4Ter.sh
+```
+```shell
+	nv for4Ter.sh
+```
+```shell
+#!/bin/zsh
+#File for4Ter.sh
+
+# controllo che sia esattamente un parametro
+if test $# -ne 1
+then
+	echo ERROR: il numero di parametri "($#)" non è corretto
+	exit 1
+fi
+
+# controllo che sia un file e che sia un nome relativo semplice
+if test -f $1
+then
+	echo  DEBUG-VISUALIZZAZIONE DI $i
+	case $1 in
+	*/*)	echo ERROR: non sono un nome relativo semplice
+		exit 2;;
+	esac
+else
+	echo ERROR: "($1)" non è un file
+	exit 2
+fi
+
+#supponiamo che nel file t siano stati memorizzati i nomi di alcuni file insieme con la loro lunghezza in linee
+c=0	#variabile che ci serve all'interno del for per capire se siamo su un elemento dispari (nome file) o su un elemento pari (numero di linee)
+for i in `cat $1` 	#la lista usata nel for corrisponde al contenuto di un file!
+do
+ 	c=`expr $c + 1` 	#ad ogni iterazione incrementiamo il contatore
+        if test `expr $c % 2` -eq 1    	#se il contatore e' dispari
+	then
+		echo Elemento dispari, quindi nome di file $i
+		if test -f $i		#controlliamo sia il nome di un file
+		then 	cat $i		#e se si' lo visualizziamo
+		fi
+        else 				#se il contatore e' pari
+		echo Elemento pari, quindi lunghezza in linee del file appena visualizzato = $i
+        fi
+done
+```
+```shell
+./for4Ter.sh temp
+```
+**21) Si creino poi altri due file con nome temp1 e temp2 che devono avere, rispettivamente il seguente formato:**
+- temp1 deve contenere le informazioni del file temp, ma riportate su 3 linee in cui in ogni linea ci sia il nome
+del file e poi il numero di linee di quel file;
+- temp2 deve contenere le informazioni del file temp1, ma riportate su un’unica linea.
+
+**Si verifichi usando una shell lanciata con sh –x che il risultato dei comandi *echo \`cat temp\`*
+, echo *\`cat temp1\`* e *echo \`cat temp2\`* riporti comunque le informazioni tutte su una singola linea.
+Quindi, si verifichi il funzionamento di for4Ter.sh passando anche questi due file.**
+```shell
+	nv temp1
+```
+```shell
+	nv temp2
+```
+```shell
+	sh -x
+```
+```shell
+	echo `cat temp`; echo `cat temp1`; echo `cat temp2`;
+```
+```shell
+	./for4Ter.sh temp; ./for4Ter.sh temp1; ./for4Ter.sh temp2; 
+```
+**22) Con un editor, scrivere un file comandi di nome primo-par.sh che, dopo aver controllato che il numero di
+parametri non sia 0 (CONTROLLO DEI PARAMETRI LASCO), riporti su standard output il primo parametro della
+linea di comando e anche la lista dei parametri escluso il primo. Verificarne il funzionamento.**
+```shell
+	nv primo-par.sh
+```
+```shell
+#!/bin/zsh
+#File primo-par.sh
+
+# controllo il numero di parametri sia diverso da 0
+if test $# -lt 1
+then
+	echo ERROR: voglio almeno un parametro
+	exit 1
+fi
+
+FIRST=$1        #salviamo il primo parametro
+shift           #e quindi lo eliminiamo dalla lista dei parametri
+
+#stampiamo il primo parametro e la lista degli altri parametri (escluso il primo)
+echo Primo parametro = $FIRST
+echo Lista parametri escluso primo = $*
+```
+```shell
+	chmod u+x primo-par.sh
+```
+```shell
+	./primo-par.sh prova qualche comando per verificare lo script
+```
+**23) Con un editor, scrivere un file comandi di nome ultimo-par.sh che, dopo aver controllato che il numero
+di parametri non sia 0 (CONTROLLO DEI PARAMETRI LASCO), riporti su standard output l'ultimo parametro
+della linea di comando e che riporti anche la lista dei parametri escluso l’ultimo. Verificarne il funzionamento.**
+```shell
+	nv ultimo-par.sh
+```
+```shell
+#!/bin/zsh
+#File ultimo-par.sh
+
+# controllo il numero di parametri sia diverso da 0
+if test $# -lt 1
+then
+        echo ERROR: voglio almeno un parametro
+        exit 1
+fi
+
+LAST=
+LIST=
+
+count=0
+for i
+do
+        count=`expr $count + 1`
+        if test $count -ne $#
+        then
+                LIST="$LIST $i"
+        else
+                LAST=$i
+        fi
+done
+
+echo Ultimo parametro = $LAST
+echo Lista parametri escluso ultimo = $LIST
+```
+```shell
+	chmod u+x ultimo-par.sh
+```
+```shell
+	./ultimo-par.sh
+```
+**24) Con un editor, scrivere due file comandi; il primo file comandi si deve chiamare FCP.sh e deve fare i seguenti
+controlli: a) essere invocato esattamente con 1 parametro (CONTROLLO DEI PARAMETRI STRETTO); b) tale
+parametro rappresenti un nome assoluto c) di una directory esistente e traversabile; dopo i controlli, FCP.sh
+deve invocare il secondo file comandi passandogli la directory assoluta. Il secondo file comandi si deve
+chiamare file-dir.sh e, dopo essersi spostato nella directory il cui nome è passato come parametro, deve
+scorrere l'intero contenuto della directory e deve riportare la stringa [F] prima del nome assoluto di ogni file
+regolare ed una stringa [D] prima del nome assoluto di ogni directory; prima di terminare, da ultimo, deve
+riportare su standard output il numero totale di nomi di file stampati e il numero totale di nomi di directory
+stampate. Verificarne il funzionamento. NOTA BENE: il file comandi file-dir.sh NON deve essere ricorsivo.**
+```shell
+	nv FCP.sh
+```
+```shell
+#!/bin/zsh
+#File FCP.sh
+
+# controllo che ci sia soltanto 1 parametro
+if test $# -ne 1
+then
+	echo ERROR: mi serve sono un parametro
+	exit 1
+else
+	echo DEBUG-il numero di parametri giusto
+fi
+
+# controllo che il parametro rappresenti un nome assoluto
+case $1 in
+/*) 	echo DEBUG-il nome è assoluto;;
+*) 	echo ERROR: il nome non è assoluto
+	exit 2;;
+esac
+
+# controllo che sia una directory traversabile
+if test -d $1 -a -x $1
+then
+	echo DEBUG-Sono una directory traversabile
+else
+	echo ERROR: non sono una directory o non sono traversabile
+fi
+
+# finiti i controlli chiamo il file 'file-dir.sh' passandogli la directory assoluta $1
+./file-dir.sh $1
+```
+```shell
+	nv file-dir.sh
+```
+```shell
+#!/bin/zsh
+#File file-dir.sh
+
+# mi sposto nella directory passatomi come parametro
+cd $1
+
+# inizializo due variabili per tenere conto dei file e directory lette
+FILE=0
+DIR=0
+
+# itere su tutto il contenuto della directory
+for i in *
+do
+	if test -f $i
+	then
+		echo "[F] `pwd`/$i"
+		FILE=`expr $FILE + 1`
+	elif test -d $i
+	then
+		echo "[D] `pwd`/$i"
+		DIR=`expr $DIR + 1`
+	fi
+done
+
+# riporto il numero di file e dir letti
+echo Ho letto $FILE file
+echo Ho letto $DIR directory
+```
+```shell
+	./FCP.sh /Users/marin/files/dir1
+```
+## SEMPLICI FILE COMANDI RICORSIVI
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
 
 ```
 ```shell
@@ -686,6 +944,218 @@ usato a lezione. Si verifichi quindi il funzionamento di for4Ter.sh passando il 
 ```shell
 
 ```
+```shell
 
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
 
 
