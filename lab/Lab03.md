@@ -479,7 +479,7 @@ done
 ```
 **15) Copiare il file comandi tutti-par.sh dell’esercizio precedente nel file comandi di nome tutti-par-
 bis.sh; aggiungere, all’interno del ciclo in cui si riporta su standard output il valore di ogni parametro
-passato, l’indicazione del loro ‘nome’ ($1, $2, etc.). SUGGERIMENTO: Usare un contatore e poi stamparne il
+passato, l’indicazione del loro 'nome' (\$1, \$2, etc.). SUGGERIMENTO: Usare un contatore e poi stamparne il
 valore insieme con \$. Verificarne il funzionamento.**
 ```shell
     cp -p tutti-par.sh tutti-par-bis.sh
