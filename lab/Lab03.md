@@ -866,33 +866,143 @@ echo Ho letto $DIR directory
 	./FCP.sh /Users/marin/files/dir1
 ```
 ## SEMPLICI FILE COMANDI RICORSIVI
+**25) Copiare il file comandi BeginC.sh visto a lezione (scaricabile da GITHUB; N.B. si scarichi anche il file comandi
+ricorsivo Cercafile.sh) nel file comandi di nome BeginC-sbagliato.sh dove si vada a cancellare
+o a commentare le due righe corrispondenti al settaggio e all’esportazione della variabile di ambiente PATH.
+Verificarne il funzionamento per i vari casi di invocazioni errate e poi di invocazioni giuste (con due e un
+parametro) viste a lezione: in questi ultimi due casi, si ha funzionamento corretto?**
 ```shell
-
+	cp -p BeginC.sh BeginC-sbagliato.sh
 ```
 ```shell
+#!/bin/zsh
+#file comandi BeginC-sbagliato.sh
+d=      #la variabile d serve per memorizzare o il primo parametro oppure la directory corrente
+f=      #la variabile f serve per memorizzare il parametro che rappresenta il nome relativo semplice del file (primo o secondo parametro a seconda dei casi)
+case $# in
+0) echo "POCHI PARAMETRI - Usage is: $0 [directory] file"
+   exit 1;;
+1) d=`pwd`; f=$1;;
+2) d=$1; f=$2;;
+*) echo "TROPPI PARAMETRI - Usage is: $0 [directory] file"
+   exit 2;;
+esac
+#controllo che d sia dato in forma assoluta
+case $d in
+/*) ;;
+*) echo Errore: $d non in forma assoluta
+   exit 3;;
+esac
+#controllo che f sia dato in forma relativa semplice
+case $f in
+*/*) echo Errore: $f non in forma relativa semplice
+     exit 4;;
+*) ;;
+esac
+#controllo che d sia una directory e che sia traversabile
+if test ! -d $d -o ! -x $d
+then echo Errore: $d non directory o non attraversabile; exit 5
+fi
 
+# ==================
+# PATH=`pwd`:$PATH
+# export PATH
+# ==================
+
+echo BeginC-sbagliato.sh: Stiamo per esplorare la directory $d
+./Cercafile.sh $d $f    #invocazione del secondo file comandi (che e' quello RICORSIVO e fa in questo caso tutto il 'lavoro'!)
+echo HO FINITO TUTTO
 ```
 ```shell
-
+	./BeginC-sbagliato.sh /Users/marin/files pippo.txt
+```
+```
+	[ con i comandi 'PATH' e 'esport PATH' commentati produre errore ]
+```
+```
+	[ senza il file mi trova il file correttamente ]
+```
+**26) Prendendo ispirazione dai file comandi BeginC.sh e Cercafile.sh visti a lezione (scaricabili da
+GITHUB), con un editor, scrivere due file comandi Beginc-dir.sh e Cercadir.sh. Il primo file comandi si deve
+comportare come Beginc.sh con la sola differenza che il nome relativo passato come primo o secondo
+parametro dovrà poi essere considerato come nome relativo semplice di una directory (e non di un file).
+Quindi, il secondo file comandi (che deve essere ricorsivo) deve cercare tutte le directory con il nome
+specificato (e non i file). SI FACCIA PARTICOLARE ATTENZIONE CHE NELLA RICERCA DELLE DIRECTORY CON IL
+NOME RELATIVO PASSATO SI DEVE CONSIDERARE ANCHE LA RADICE DELLA GERARCHIA SU CUI SI EFFETTUA
+LA RICERCA! Verificarne il funzionamento per i vari casi. Suggerimento: per cercare il nome della directory il
+cui nome relativo è $2 usare un case sul nome assoluto della directory $1!**
+```shell
+	nv BeginC.sh BeginC-dir.sh
 ```
 ```shell
+#!/bin/zsh
+#file comandi BeginC-dir.sh
+d=      #la variabile d serve per memorizzare o il primo parametro oppure la directory corrente
+dd=     #la variabile f serve per memorizzare il parametro che rappresenta il nome relativo semplice della directory (primo o secondo parametro a seconda dei casi)
+case $# in
+0) echo "POCHI PARAMETRI - Usage is: $0 [directory] directory"
+   exit 1;;
+1) d=`pwd`; dd=$1;;
+2) d=$1; dd=$2;;
+*) echo "TROPPI PARAMETRI - Usage is: $0 [directory] directory"
+   exit 2;;
+esac
+#controllo che d sia dato in forma assoluta
+case $d in
+/*) ;;
+*) echo Errore: $d non in forma assoluta
+   exit 3;;
+esac
+#controllo che dd sia dato in forma relativa semplice
+case $dd in
+*/*) echo Errore: $dd non in forma relativa semplice
+     exit 4;;
+*) ;;
+esac
+#controllo che d sia una directory e che sia traversabile
+if test ! -d $d -o ! -x $d
+then echo Errore: $d non directory o non attraversabile; exit 5
+fi
 
+PATH=`pwd`:$PATH
+export PATH
+echo BeginC-dir.sh: Stiamo per esplorare la directory $d
+./Cercadir.sh $d $dd    #invocazione del secondo file comandi (che e' quello RICORSIVO e fa in questo caso tutto il 'lavoro'!)
+echo HO FINITO TUTTO
 ```
 ```shell
+#!/bin/zsh
+#file comandi Cercadir.sh
+#ricerca in breadth-first
+cd $1           #ci spostiamo nella directory in cui dobbiamo fare la ricerca per questa invocazione
+if test -x $2   #verifichiamo se esiste una directory con il nome fornito dall'utente
+then
+        echo la directory $2 si trova in `pwd`  #trovato dir
+fi
 
+#passiamo ora alla parte ricorsiva
+for i in *
+do
+        if test -d $i -a -x $i
+        then
+                #stampa di debugging
+                echo DEBUG-Stiamo per esplorare la directory `pwd`/$i
+                #invocazione ricorsiva: ATTENZIONE NOME ASSOLUTO dir!!!
+                Cercadir.sh `pwd`/$i $2
+        fi
+done
 ```
 ```shell
-
+	./Beginc-dir.sh `pwd`/ger ger
 ```
-```shell
-
 ```
-```shell
-
+	[ tutto funziona correttamente ]
 ```
-```shell
-
-```
+## LN
+**27) Creare una sottodirectory dandogli nome provaDir e creare in tale sottodirectory un link HARDWARE di
+nome sia lll che riferisca un file presente nella propria HOME directory; e verificare sia il numero di link che
+l’i-number sia del link che del nome ‘originale’; modificare il file utilizzando il link e verificare la modifica
+usando il nome ‘originale’ del file.**
 ```shell
 
 ```
