@@ -1047,140 +1047,88 @@ aggiungo una riga mediante il link
 	sono la prima riga del file provaLN
 	aggiungo una riga mediante il link
 ```
+**28) Creare una copia, sempre nella sottodirectory precedentemente creata, di un file presente nella propria HOME
+directory e verificare sia il numero di link che l’i-number del file destinazione e del file ‘sorgente’.**
 ```shell
-
+	cp -p provaLN provaDir/provaLNcopy
 ```
 ```shell
-
+	ls -li provaDir/lll 
+```
+```
+	[ 49071593 -rw-r--r--@ 2 marin  staff  48 Mar 29 14:42 provaDir/lll ]
 ```
 ```shell
-
+	ls -li provaDir/provaLNcopy
+```
+```
+	[ 49075295 -rw-r--r--  1 marin  staff  48 Mar 29 14:42 provaDir/provaLNcopy ]
 ```
 ```shell
-
+	ls -li provaLN
+```
+```
+	[ 49071593 -rw-r--r--@ 2 marin  staff  48 Mar 29 14:42 provaLN ]
+```
+**29) Modificare il file ‘copia’ e verificare che il file originale non sia stato modificato!**
+```shell
+	nv provaDir/provaLNcopy
+```
+```
+#File provaLN
+sono la prima riga del file provaLN
+aggiungo una riga mediante il link
+modifica del file copiato
 ```
 ```shell
-
+	cat < provaLN
+```
+```
+	#File provaLN
+	sono la prima riga del file provaLN
+	aggiungo una riga mediante il link
 ```
 ```shell
-
+	cat < provaDir/lll
+```
+```
+	#File provaLN
+	sono la prima riga del file provaLN
+	aggiungo una riga mediante il link
+```
+```
+	[ non sono presenti modifiche, ok! ]
+```
+**30) Cancellare il file presente nella propria HOME directory che è stato usato per creare il un link HARDWARE lll
+e quindi verificare sia il numero di link che l’i-number di tale link oltre che verificarne il contenuto.**
+```shell
+	rm provaLN
 ```
 ```shell
-
+	ls -li provaDir/lll
+```
+```
+	[ 49071593 -rw-r--r--  1 marin  staff  48 Mar 29 14:42 provaDir/lll ]
 ```
 ```shell
-
+	cat < provaDir/lll
 ```
+```
+	#File provaLN
+	sono la prima riga del file provaLN
+	aggiungo una riga mediante il link
+```
+**31) Rinominare un file della propria HOME directory.**
 ```shell
-
+	mv fille file
 ```
+**32) Spostare uno dei file della propria HOME directory sempre nella sottodirectory precedentemente creata,
+mantenendo lo stesso nome.**
 ```shell
-
+	mv file provaDir/
 ```
+**33) Spostare uno dei file della propria HOME directory sempre nella sottodirectory precedentemente creata,
+cambiandogli nome.**
 ```shell
-
+	mv file provaDir/file01
 ```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-
-
