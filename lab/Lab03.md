@@ -971,6 +971,9 @@ echo BeginC-dir.sh: Stiamo per esplorare la directory $d
 echo HO FINITO TUTTO
 ```
 ```shell
+	nv Cercafile.sh Cercadir.sh
+```
+```shell
 #!/bin/zsh
 #file comandi Cercadir.sh
 #ricerca in breadth-first
@@ -1004,133 +1007,45 @@ nome sia lll che riferisca un file presente nella propria HOME directory; e veri
 l’i-number sia del link che del nome ‘originale’; modificare il file utilizzando il link e verificare la modifica
 usando il nome ‘originale’ del file.**
 ```shell
-
+	nv provaLN
+```
+```
+#File provaLN
+sono la prima riga del file provaLN
 ```
 ```shell
-
+	mkdir provaDir
 ```
 ```shell
-
+	ln provaLN provaDir/lll
 ```
 ```shell
-
+	ls -li provaLN
+```
+```
+	[ 49071593 -rw-r--r--@ 2 marin  staff  26 Mar 29 14:15 provaLN ]
 ```
 ```shell
-
+	ls -li provaDir/lll
+```
+```
+	[ 49071593 -rw-r--r--@ 2 marin  staff  26 Mar 29 14:15 provaDir/lll ]
 ```
 ```shell
-
+	nv provaDir/lll
+```
+```
+#File provaLN
+sono la prima riga del file provaLN
+aggiungo una riga mediante il link
 ```
 ```shell
-
+	cat < provaLN
 ```
-```shell
-
 ```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
-```
-```shell
-
+	#File provaLN
+	sono la prima riga del file provaLN
+	aggiungo una riga mediante il link
 ```
 ```shell
 
