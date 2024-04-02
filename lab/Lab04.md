@@ -158,17 +158,89 @@ paperino
   > pippo
 ```
 ## PARTE SHELL DI TESTI DI ESAMI
-```shell
+**OSSERVAZIONE: Per tutti i testi che NON sono di una prima prova in itinere, ma di un compito completo, al posto della
+invocazione della parte C, si inserisca un echo che illustri con quali parametri andrebbe invocata la parte C!**
+### a) TESTO PARTE SHELL DELL’ESAME DEL 15 FEBBRAIO 2017
+**La parte in Shell deve prevedere due parametri:** 
+- il primo deve essere il nome assoluto di una directory che
+identifica una gerarchia (G) all’interno del file system;
+- il secondo parametro deve essere considerato un numero
+intero X strettamente positivo.
 
+**Il programma deve cercare nella gerarchia G specificata tutte le directory che
+contengono almeno un file leggibile con lunghezza in linee pari X e il cui contenuto del file sia tale per cui tutte le
+sue linee contengano almeno un carattere numerico.**
+
+**Si riporti il nome assoluto di tali directory sullo standard
+output e quindi i nomi di tutti i file trovati (F1, F2, … FN). Quindi in ogni directory trovata, chiesta conferma
+all’utente, si deve invocare la parte in C, passando come parametri i nomi dei file trovati (F1, F2, … FN) e la loro
+lunghezza in linee X.**
+```shell
+  nv FCP.sh
 ```
 ```shell
 
 ```
 ```shell
-
+  nv FCR.sh
 ```
 ```shell
+#!/bin/zsh
+#File FCR.sh
 
+G=$1
+X=$2
+
+# mi sposto nella directory passata come parametro
+cd $G
+
+count=0
+FILES=
+
+# esploro da directory corrente
+for i in *
+do
+        # cerco file leggibile
+        if test -f $i -a -r $i
+        then
+                # controllo la lunghezza in linee
+                n=`wc -l $i`
+
+                if test n -eq $X
+                then
+                        # controllo che ogni riga contenga almeno un numero
+                        if ! grep -q -v '[0-9]' $i
+                        then
+                                count=`expr $count + 1`
+                                FILE="$FILES $i"
+                        fi
+                fi
+        fi
+done
+
+if test $count -gt 0
+then
+        echo La directory `pwd` contiene $count files
+        echo $FILES
+fi
+
+echo "main.c $FILES $X"
+
+# la chiamata ricorsiva per proseguire
+for i in *
+do
+        # se directory traversabile
+        if test -d $i -a -x $i
+        then
+                ./FCR.sh `pwd`/$i $X
+        fi
+done
+```
+```shell
+  chmod u+x FCP.sh FCR.sh
+```
+```shell
+  ./FCP.sh /files 5
 ```
 ```shell
 
