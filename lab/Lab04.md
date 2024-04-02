@@ -247,6 +247,12 @@ do
                         fi
                 fi
         fi
+
+        # se directory traversabile chiamata ricorsiva
+        if test -d $i -a -x $i
+        then
+                ./FCR.sh `pwd`/$i $X
+        fi
 done
 
 if test $count -gt 0
@@ -256,16 +262,6 @@ then
 fi
 
 echo "main.c $FILES $X"
-
-# la chiamata ricorsiva per proseguire
-for i in *
-do
-        # se directory traversabile
-        if test -d $i -a -x $i
-        then
-                ./FCR.sh `pwd`/$i $X
-        fi
-done
 ```
 ```shell
   chmod u+x FCP.sh FCR.sh
