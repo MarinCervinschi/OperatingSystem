@@ -17,9 +17,9 @@ do
         if test -f $i -a -r $i
         then
                 # controllo la lunghezza in linee
-                n=`wc -l $i`
+                n=`wc -l < $i`
 
-                if test n -eq $X
+                if test $n -eq $X
                 then
                         # controllo che ogni riga contenga almeno un numero
                         if ! grep -q -v '[0-9]' $i
@@ -28,6 +28,12 @@ do
 				FILE="$FILES $i"
                         fi
                 fi
+        fi
+
+	# se directory traversabile chiamata ricorsiva
+        if test -d $i -a -x $i
+        then
+                ./FCR.sh `pwd`/$i $X
         fi
 done
 
@@ -38,13 +44,3 @@ then
 fi
 
 echo "main.c $FILES $X"
-
-# la chiamata ricorsiva per proseguire
-for i in *
-do
-        # se directory traversabile
-        if test -d $i -a -x $i
-        then
-                ./FCR.sh `pwd`/$i $X
-        fi
-done
