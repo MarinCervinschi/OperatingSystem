@@ -1,46 +1,51 @@
 #!/bin/zsh
 #File FCR.sh
 
-G=$1
-X=$2
+cd $1
 
-# mi sposto nella directory passata come parametro
-cd $G
+#definiamo una variabile per contenere il numero di righe
+NR=
 
-count=0
-FILES=
+#definiamo una variabile per contenere il numero di righe che contengono almeno un carattere numerico 
+N=
 
-# esploro da directory corrente
+#definiamo una variabile per memorizzare i nomi dei file 
+files=
+
 for i in *
 do
-        # cerco file leggibile
-        if test -f $i -a -r $i
-        then
-                # controllo la lunghezza in linee
-                n=`wc -l < $i`
-
-                if test $n -eq $X
-                then
-                        # controllo che ogni riga contenga almeno un numero
-                        if ! grep -q -v '[0-9]' $i
-                        then
-                                count=`expr $count + 1`
-				FILE="$FILES $i"
-                        fi
-                fi
-        fi
-
-	# se directory traversabile chiamata ricorsiva
-        if test -d $i -a -x $i
-        then
-                ./FCR.sh `pwd`/$i $X
-        fi
+	if test -f $i -a -r $i #se e' un file ed e' leggibile
+	then
+		#calcoliamo il numero di linee
+		NR=`wc -l < $i`
+        	#calcoliamo quante linee contengono almeno un carattere numerico 
+		N=`grep '[0-9]' $i | wc -l`
+		#echo NR is $NR e N is $N
+		if test $NR -eq $2 -a $N -eq $NR
+		then
+	  		files="$files $i" #le condizioni sono verificate e quindi salviamo il nome del file (basta il nome relativo, non serve che sia assoluto)
+		fi
+	fi
 done
 
-if test $count -gt 0
+#se ho trovato almeno un file
+if test "$files"
 then
-        echo La directory `pwd` contiene $count files
-	echo $FILES
+        echo TROVATO DIRETTORIO `pwd`
+        echo che contiene i seguenti file che soddisfano la specifica $files
+  echo DEVO CHIAMARE LA PARTE C\?
+  read risposta
+  case $risposta in
+  s*|S*|y*|Y*)  ./FCR.sh $files $2;;
+  *)            echo Nessuna invocazione della parte C;;
+  esac  
 fi
 
-echo "main.c $FILES $X"
+for i in *
+do
+if test -d $i -a -x $i
+then
+  	#echo RICORSIONE in `pwd`/$i 
+  	$0 `pwd`/$i $2	#sempre passaggio del nome assoluto della dir 
+fi
+done

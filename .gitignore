@@ -1,2 +1,14 @@
-.gitattributes
+# Node
+node_modules
+
+# Visual Studio Code
+.vscode
+
+# macOS
 .DS_Store
+.gitattributes
+*.xcodeproj
+
+# PyCharm
+*.xml
+.idea
