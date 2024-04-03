@@ -32,7 +32,7 @@ software e il suo uso.**
   [ 49341948 -rw-r--r--  1 marin  staff  20 Apr  2 10:51 file2 ]
 ```
 ```shell
-  ln -s file2 provaDir/provaLinkSoftware 
+  ln -s /Users/marin/file2 provaDir/provaLinkSoftware 
 ```
 ```shell
   ls -li provaDir/
@@ -102,7 +102,7 @@ usando l’esecuzione in background.**
 ```
 **8) Verificare i processi attivi nella sessione prima che finisca il comando lanciato in background.**
 ```shell
-  ps
+  ps -lf
 ```
 ```
   PID TTY           TIME CMD
