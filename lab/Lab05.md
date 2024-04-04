@@ -31,8 +31,6 @@ then
     exit 1
 fi
 
-# definisco una variabile per salvale le N directory
-N=
 # definisco una variabile per salvare l'ultimo parametro
 X=
 # defininsco una variabile per identificare l'ultimo parametro
@@ -54,7 +52,6 @@ do
         *)  echo ERROR: non in forma assoluta
             exit 3;;
         esac
-        N="$N $i"
     else 
         # controllo l'ultimo che deve essere un numero
         expr $i + 0 > /dev/null 2>&1
@@ -94,7 +91,7 @@ do
 done
 
 # stampo il numero totale di file trovati
-n=`wc -l < /tmp/temp`
+n=`wc -l < /tmp/temp | tr -d ' '`
 echo HO trovato $n directory che soddisfano le ricchieste
 
 # cancello il file temporaneo per le prox chiamate
