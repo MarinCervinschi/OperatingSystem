@@ -1,5 +1,12 @@
 # Tags
 
+## Export PATH
+```shell
+#settiamo la variabile PATH e la esportiamo
+PATH=`pwd`:$PATH
+export PATH
+```
+
 ## Numero parametri
 
 * Parametri **Q+1** (con Q maggiore o uguale a 2)
@@ -106,6 +113,55 @@ do
     esac
 done
 ```
+* file leggibile con lunghezza in linee pari X e tutte le linee contengono almeno un numero
+```shell
+#definiamo una variabile per contenere il numero di righe
+NR=
+#definiamo una variabile per contenere il numero di righe che contengono almeno un carattere numerico 
+N=
+#definiamo una variabile per memorizzare i nomi dei file 
+files=
+if test -f $i -a -r $i #se e' un file ed e' leggibile
+then
+	#calcoliamo il numero di linee
+	NR=`wc -l < $i`
+    	#calcoliamo quante linee contengono almeno un carattere numerico 
+	N=`grep '[0-9]' $i | wc -l`
+	#echo NR is $NR e N is $N
+	if test $NR -eq $2 -a $N -eq $NR
+	then
+  		files="$files $i" #le condizioni sono verificate e quindi salviamo il nome del file (basta il nome relativo, non serve che siaassoluto)
+	fi
+fi
+```
+* file la cui lunghezza in linee sia strettamente maggiore di X
+```shell
+#controlliamo solo i nomi dei file
+if test -f $i 
+then 	
+    #calcoliamo il numero di linee 
+    NR=`wc -l < $i`
+    #controlliamo se il numero delle linee NON e' strettamente maggiore di X
+    if test $NR -le $2
+        then
+        #abbiamo trovato un file che NON soddisfa le specifiche e quindi mettiamo a false trovato
+        trovato=false
+    fi
+fi
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+
 * parametro deve essere una stringa **(S)**
 ```shell
 #Controllo $2: ha senso che controlliamo che non contenga il carattere /

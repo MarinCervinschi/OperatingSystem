@@ -2,7 +2,7 @@
 #File FCR.sh
 
 cd $1
-
+X=$2
 #definiamo una variabile per contenere il numero di righe
 NR=
 
@@ -21,7 +21,7 @@ do
         	#calcoliamo quante linee contengono almeno un carattere numerico 
 		N=`grep '[0-9]' $i | wc -l`
 		#echo NR is $NR e N is $N
-		if test $NR -eq $2 -a $N -eq $NR
+		if test $NR -eq $X -a $N -eq $NR
 		then
 	  		files="$files $i" #le condizioni sono verificate e quindi salviamo il nome del file (basta il nome relativo, non serve che sia assoluto)
 		fi
@@ -36,7 +36,7 @@ then
   echo DEVO CHIAMARE LA PARTE C\?
   read risposta
   case $risposta in
-  s*|S*|y*|Y*)  ./FCR.sh $files $2;;
+  s*|S*|y*|Y*)  ./FCR.sh $files $X;;
   *)            echo Nessuna invocazione della parte C;;
   esac  
 fi
@@ -46,6 +46,6 @@ do
 if test -d $i -a -x $i
 then
   	#echo RICORSIONE in `pwd`/$i 
-  	$0 `pwd`/$i $2	#sempre passaggio del nome assoluto della dir 
+  	$0 `pwd`/$i $X	#sempre passaggio del nome assoluto della dir 
 fi
 done
