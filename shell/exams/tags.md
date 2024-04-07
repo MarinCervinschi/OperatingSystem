@@ -84,7 +84,7 @@ X=$1    #salviamo il numero nella variabile indicata dal testo
 expr $1 + 0 > /dev/null 2>&1
 N1=$?
 if test $N1 -ne 2 -a $N1 -ne 3
-then #echo numerico $1 siamo sicuri che numerico
+then #siamo sicuri che numerico
     if test $1 -le 0
     then 
         echo $1 non strettamente positivo
@@ -110,7 +110,7 @@ esac
 * **nomi assoluti di directory** che identificano Q gerarchie (G1, G2, …) all’interno del file system
 ```shell
 #Per tutte le gerarchie passate
-for G
+for G in $*
 do
     # se in forma assoluta controllo se directory e traversabile
     case $G in
@@ -163,8 +163,26 @@ then
     fi
 fi
 ```
+* il contenuto del file deve essere tale per cui almeno X linee terminino con il carattere **‘t’**. 
 ```shell
+#la variabile NG ci serve per il numero di linee trovate dal grep
+NG=
 
+for i in *
+do
+	if test -f $i -a -r $i #se e' un file ed e' leggibile
+	then
+		#controlliamo le linee che terminano con il carattere t!
+        NG=`grep 't$' $i | wc -l
+		# controlliamo che le linee trovate siano almeno X
+		if test $NG -ge $X
+		then
+            # abbiamo trovato un file che rispetta la consegna
+            # lo aggiungiamo al file temporaneo
+            echo `pwd`/$i >> $F
+		fi
+	fi
+done
 ```
 ```shell
 
@@ -264,11 +282,19 @@ done
 ```shell
 
 ```
+## Normale chiamata ricorsiva dentro FCR.sh
 ```shell
-
+for i in *
+do
+    if test -d $i -a -x $i
+    then
+            #chiamata ricorsiva cui passiamo come primo parametro il nome assoluto della directory
+            FCR.sh `pwd`/$i $X $F
+    fi
+done
 ```
 ## Salva dati file
-* leggi dati da file tmp, chiedi dato da utente e controllalo
+* leggi dati da file tmp, chiedi dato da utente e controllalo, salva i file in una variabile
 ```shell
 parms= #variabile in cui accumuliamo file trovati e numeri chiesti all'utente
 
@@ -278,7 +304,7 @@ do
     #Il programma, per ognuno dei file, deve richiedere all'utente un numero X intero strettamente positivo e minore di $K
     echo "Dammi un numero intero strettamente positivo e minore o uguale a $K per il file $i: "
     read X
-    #Controllo X (sempre con case!)
+    #Controllo X (con case!)
     case $X in
     *[!0-9]*) echo non numerico o non positivo
               rm /tmp/tmp$$ #poiche' stiamo uscendo a causa di un errore, cancelliamo il file temporaneo!
@@ -299,8 +325,39 @@ do
     params="$params $X"
 done
 ```
+* stampa num. e file trovati, chiedi un num. dal utente, fai i controlli e stampa la K-esima riga dalla testa
 ```shell
 
+#terminate tutte le ricerche ricorsive cioe' le N fasi
+# Andiamo a contare le linee del file /tmp/conta$$
+echo Il numero di file totali che soddisfano la specifica = `wc -l < /tmp/conta$$`
+for i in `cat /tmp/conta$$`
+do
+    #Stampiamo (come richiesto dal testo) i nomi assoluti dei file trovati
+    echo Trovato il file $i
+    #chiediamo all'utente il numero K per ogni file trovato
+    echo -n "Dammi il numero K (strettamente maggiore di 0 e strettamente minore di $X): "
+    read K
+    #Controllo K (sempre con expr, se prima lo abbiamo fatto con expr, altrimenti sempre con case se prima lo abbiamo fatto con case!)
+    expr $K + 0  > /dev/null 2>&1
+    N1=$?
+    if test $N1 -ne 2 -a $N1 -ne 3
+    then    #echo numerico $K siamo sicuri che numerico
+            if test $K -le 0 -o $K -ge $X
+            then    echo $K non positivo o non minore di $X
+                    rm /tmp/conta$$ #poiche' stiamo uscendo a causa di un errore, cancelliamo il file temporaneo!
+                    exit 6
+            fi
+    else
+            echo $K non numerico
+            rm /tmp/conta$$ #poiche' stiamo uscendo a causa di un errore, cancelliamo il file temporaneo!
+            exit 7
+    fi
+    #selezioniamo direttamente la $K-esima linea del file corrente
+    echo la $K-esima linea del file corrente : `head -$K $i | tail -1`
+done
+#da ultimo eliminiamo il file temporaneo
+rm /tmp/conta$$
 ```
 ```shell
 
