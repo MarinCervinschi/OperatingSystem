@@ -184,11 +184,21 @@ do
 	fi
 done
 ```
+* controllare il numero di caratteri di un file
 ```shell
-
+# con test
+if test ${#1} -ne 3
+then
+    echo "Errore: il primo parametro non contiene 3 caratteri"
+    exit 1
+fi
 ```
 ```shell
-
+# con case
+case $1 in
+    ???) ;; # non fare nulla se il parametro ha 3 caratteri
+    *) echo "Errore: il primo parametro non contiene 3 caratteri"; exit 1 ;;
+esac
 ```
 ```shell
 
