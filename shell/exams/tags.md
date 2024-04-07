@@ -35,12 +35,12 @@ case $# in
 *) 	echo DEBUG-OK: da qui in poi proseguiamo con $# parametri ;;
 esac
 ```
-* tre parametri
+* N parametri
 ```shell
 case $# in
-3)	...
+N)	;;
 *) 	echo Errore: Usage is $0 dirass stringa numero 
-	exit 3;;
+	exit 1;;
 esac
 ```
 * un parametro + nome directory in forma assoluta
@@ -96,6 +96,17 @@ else
 fi
 X=$1 #se i controlli sono andati bene salviamo l'ultimo parametro
 ```
+```shell
+# fatto con case
+case $2 in
+    *[!0-9]*) echo $2 non numerico o non positivo
+                    exit 4;;
+    *) if test $2 -eq 0
+       then echo ERRORE: secondo parametro $2 uguale a zero
+            exit 5
+       fi ;;
+esac
+```
 * **nomi assoluti di directory** che identificano Q gerarchie (G1, G2, …) all’interno del file system
 ```shell
 #Per tutte le gerarchie passate
@@ -121,18 +132,21 @@ NR=
 N=
 #definiamo una variabile per memorizzare i nomi dei file 
 files=
-if test -f $i -a -r $i #se e' un file ed e' leggibile
-then
-	#calcoliamo il numero di linee
-	NR=`wc -l < $i`
-    	#calcoliamo quante linee contengono almeno un carattere numerico 
-	N=`grep '[0-9]' $i | wc -l`
-	#echo NR is $NR e N is $N
-	if test $NR -eq $2 -a $N -eq $NR
+for i in *
+do
+	if test -f $i -a -r $i #se e' un file ed e' leggibile
 	then
-  		files="$files $i" #le condizioni sono verificate e quindi salviamo il nome del file (basta il nome relativo, non serve che siaassoluto)
+		#calcoliamo il numero di linee
+		NR=`wc -l < $i`
+        	#calcoliamo quante linee contengono almeno un carattere numerico 
+		N=`grep '[0-9]' $i | wc -l`
+		#echo NR is $NR e N is $N
+		if test $NR -eq $X -a $N -eq $NR
+		then
+	  		files="$files $i" #le condizioni sono verificate e quindi salviamo il nome del file (basta il nome relativo, non serve che sia assoluto)
+		fi
 	fi
-fi
+done
 ```
 * file la cui lunghezza in linee sia strettamente maggiore di X
 ```shell
@@ -253,8 +267,37 @@ done
 ```shell
 
 ```
+## Salva dati file
+* leggi dati da file tmp, chiedi dato da utente e controllalo
 ```shell
+parms= #variabile in cui accumuliamo file trovati e numeri chiesti all'utente
 
+for i in `cat /tmp/tmp$$`
+do
+    params="$params $i"
+    #Il programma, per ognuno dei file, deve richiedere all'utente un numero X intero strettamente positivo e minore di $K
+    echo "Dammi un numero intero strettamente positivo e minore o uguale a $K per il file $i: "
+    read X
+    #Controllo X (sempre con case!)
+    case $X in
+    *[!0-9]*) echo non numerico o non positivo
+              rm /tmp/tmp$$ #poiche' stiamo uscendo a causa di un errore, cancelliamo il file temporaneo!
+              exit 6;;
+    *)  if test $X -eq 0
+        then 
+            echo ERRORE: dato inserito $X uguale a zero
+            rm /tmp/tmp$$ #poiche' stiamo uscendo a causa di un errore, cancelliamo il file temporaneo!
+            exit 7
+        fi ;;
+    esac
+    if test $X -gt $K
+    then
+            echo Numero fornito $X non minore di $K
+            rm /tmp/tmp$$ #poiche' stiamo uscendo a causa di un errore, cancelliamo il file temporaneo!
+            exit 8
+    fi
+    params="$params $X"
+done
 ```
 ```shell
 
