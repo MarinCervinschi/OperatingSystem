@@ -2,9 +2,9 @@
 #File FCP.sh
 
 # controllo sul numero di parametri 
-if test $# -lt 2
+if test $# -lt 3
 then
-    echo ERROR: $# deve essere maggiore o uguale a 2
+    echo ERROR: $# deve essere maggiore o uguale a 3
     exit 1
 fi
 
@@ -54,7 +54,7 @@ PATH=`pwd`:$PATH
 export PATH
 
 # creo file
-touch /tmp/temp 
+> /tmp/temp 
 
 count=0
 #invocazione del file comando ricorsivo

@@ -1,0 +1,220 @@
+# Tags
+
+## Numero parametri
+
+* Parametri **Q+1** (con Q maggiore o uguale a 2)
+```shell
+#Controllo che i parametri non siano meno di 3
+if test $# -lt 3
+then
+    echo Numero parametri incorretto, almeno 3 >&2
+    exit 1
+fi
+```
+* Parametri **Q+2** (con Q maggiore o uguale a 2)
+```shell
+case $# in
+0|1|2|3) echo Errore: numero parametri $# quindi pochi parametri. Usage is $0 W S dirass1 dirass2 ...
+         exit 1;;
+*)       echo DEBUG-OK: da qui in poi proseguiamo con $# parametri ;;
+esac
+```
+* N parametri: (con N maggiore o uguale a 2)
+```shell
+#controllo sul numero di parametri: deve essere maggiore o uguale a 2
+case $# in
+0|1)	echo Errore: numero parametri $# quindi pochi parametri. Usage is $0 dirass1 dirass2 ...
+	exit 1;;
+*) 	echo DEBUG-OK: da qui in poi proseguiamo con $# parametri ;;
+esac
+```
+* tre parametri
+```shell
+case $# in
+3)	...
+*) 	echo Errore: Usage is $0 dirass stringa numero 
+	exit 3;;
+esac
+```
+* un parametro + nome directory in forma assoluta
+```shell
+#controllo sul numero di parametri: deve essere passato un solo parametro
+#facciamo anche contestualmente il controllo se e' una directory traversabile
+case $# in
+1)	case $1 in
+	/*) if test ! -d $1 -o ! -x $1
+	    then
+	    echo $1 non directory o non attraversabile
+	    exit 1
+	    fi;;
+	*)  echo $1 non nome assoluto; exit 2;;
+	esac;;
+*) 	echo Errore: Usage is $0 dirass 
+	exit 3;;
+esac
+```
+## Tipo di parametro
+* numero intero (X) strettamente positivo e strettamente minore di 4
+```shell
+#dobbiamo controllare che il parametro sia un numero, sia strettamente maggiore di 0 e strettamente minore di 4
+case $1 in
+*[!0-9]*) echo $1 non numerico o non positivo
+          exit 2;;
+*)        if test $1 -eq 0 -o $1 -ge 4   #sbagliato
+          then
+                  echo $1 uguale a 0 oppure maggiore o uguale a 4
+                  exit 3
+          else
+                  echo DEBUG-primo parametro giusto $1
+          fi;;
+esac
+
+X=$1    #salviamo il numero nella variabile indicata dal testo 
+```
+* numero intero X strettamente positivo (con expr)
+```shell
+# Controllo numero intero strettamente positivo (con expr)
+expr $1 + 0 > /dev/null 2>&1
+N1=$?
+if test $N1 -ne 2 -a $N1 -ne 3
+then #echo numerico $1 siamo sicuri che numerico
+    if test $1 -le 0
+    then 
+        echo $1 non strettamente positivo
+        exit 4
+    fi
+else
+    echo $1 non numerico
+    exit 5
+fi
+X=$1 #se i controlli sono andati bene salviamo l'ultimo parametro
+```
+* **nomi assoluti di directory** che identificano Q gerarchie (G1, G2, …) all’interno del file system
+```shell
+#Per tutte le gerarchie passate
+for G
+do
+    # se in forma assoluta controllo se directory e traversabile
+    case $G in
+    /*) if test ! -d $G -o ! -x $G
+        then
+            echo $G non directory
+            exit 4
+        fi;;
+    *)  echo $G non nome assoluto; 
+        exit 5;;
+    esac
+done
+```
+* parametro deve essere una stringa **(S)**
+```shell
+#Controllo $2: ha senso che controlliamo che non contenga il carattere /
+case $2 in
+	*/*) echo $2 non deve contenere il carattere \/
+	     exit 4;;
+esac
+S=$2	 #nome specificato nel testo
+```
+* parametro deve essere considerato un singolo carattere C
+```shell
+case $1 in
+?) ;;
+*)      echo $1 non singolo carattere
+        exit 2;;
+esac
+#salviamo il parametro: il nome della variabile da usare era specificato nel testo
+C=$1
+```
+* parametro deve essere considerato un nome relativo semplice F
+```shell
+#Controllo primo parametro sia dato in forma relativa semplice
+case $1 in
+*/*) echo Errore: $1 non in forma relativa semplice
+    exit 2;;
+*) ;;
+esac
+F=$1 #salviamo il primo parametro
+```
+
+## Isolare parametri
+* primi N parametri
+```shell
+shift ... N volte
+```
+* l’ultimo parametro deve essere considerato ...
+```shell
+#dobbiamo isolare l'ultimo parametro e intanto facciamo i controlli
+num=1 	#la variabile num ci serve per capire quando abbiamo trovato l'ultimo parametro
+params=	#la variabile params ci serve per accumulare i parametri a parte l'ultimo
+#in $* abbiamo i nomi delle gerarchie e il numero intero 
+for i 
+do
+	if test $num -ne $# #ci serve per non considerare l'ultimo parametro che e' il numero
+	then
+		#soliti controlli su nome assoluto e directory traversabile
+		...
+		params="$params $i" #se i controlli sono andati bene memorizziamo il nome nella lista params
+	else
+	#abbiamo individuato l'ultimo parametro e quindi facciamo il solito controllo su numerico e strettamente positivo
+		#Controllo ultimo  parametro (con expr)
+		...
+		X=$i #se i controlli sono andati bene salviamo l'ultimo parametro
+	fi
+	num=`expr $num + 1` #incrementiamo il contatore del ciclo sui parametri
+done
+```
+* gli ultimi due parametri devono essere considerati ...
+```shell
+#dobbiamo isolare gli ultimi due parametri e intanto facciamo i controlli
+num=1   #la variabile num ci serve per capire quando abbiamo trovato il penultimo e l'ultimo parametro
+params= #la variabile params ci serve per accumulare i parametri a parte gli ultimi due
+#in $* abbiamo i nomi delle gerarchie e i due numeri interi
+for i
+do
+        if test $num -lt `expr $# - 1` #ci serve per non considerare gli ultimi due parametri che sono i numeri
+        then
+                #soliti controlli su nome assoluto e directory traversabile
+                ...
+                params="$params $i" #se i controlli sono andati bene memorizziamo il nome nella lista params
+        else
+        #abbiamo individuato gli ultimi due parametri e quindi facciamo il solito controllo su numerico e strettamente positivo
+            #Controllo penultimo e ultimo parametro
+		    ...
+		    #se i controlli sono andati bene salviamo il penultimo e ultimo parametro
+		    if test $num -eq `expr $# - 1`
+		    then
+		    	H=$i	#H nome indicato nel testo
+		    else
+		    	M=$i	#M nome indicato nel testo
+            fi
+        fi
+       	num=`expr $num + 1` #incrementiamo il contatore del ciclo sui parametri
+done
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+```shell
+
+```
+
+
+

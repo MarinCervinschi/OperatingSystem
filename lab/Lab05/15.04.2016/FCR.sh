@@ -14,7 +14,7 @@ do
 
         if test $res -eq 0
         then
-            # aggiungo una direcory trovata globalmente
+            # conto le direcory trovate, globalmente
             echo "1" >> /tmp/temp
             # stampo il risultato 
             echo Il nome assoluto della directory: `pwd`/$i
@@ -22,7 +22,7 @@ do
             for file in "$i"/*
             do
                 echo `pwd`/$i/$file
-                echo Linea $2 a partire dalla fine: `tail -n $2 "$file" | head -n 1`
+                echo Linea $2 a partire dalla fine: `tail -$2 "$file" | head -1`
             done
         fi
         exit 1
