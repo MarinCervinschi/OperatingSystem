@@ -56,7 +56,7 @@ do
 done
 
 #settiamo la variabile PATH e la esportiamo
-PATH=`pwd`:PATH
+PATH=`pwd`:$PATH
 export PATH
 
 # iteriamo su ogni gerarchia invocando il file ricorsivo

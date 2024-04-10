@@ -53,7 +53,7 @@ do
 done
 
 # aggiugo la directory corrente al path e la esporto
-PATH=`pwd`:PATH
+PATH=`pwd`:$PATH
 export PATH
 
 # creo un file temporaneo
