@@ -13,9 +13,9 @@ expr $1 + 0  > /dev/null 2>&1
 N1=$?
 if test $N1 -ne 2 -a $N1 -ne 3
 then # in questo caso è certamente numerico
-    if test $1 -le 0 # controllo che il numero sia positivo
+    if test $1 -le 0 -o $1 -ge 4 # controllo che il numero sia 0 < X < 4
     then
-        echo ERROR: $1 non strettamente positivo
+        echo ERROR: $1 non strettamente positivo o non strettamente minore di 4
         exit 2
     fi
 else
