@@ -76,6 +76,44 @@ calculate the octal mode by adding the permissions for each user type.
 - `chmod o=r file.txt` -> set read permission to others.
 - `chmod a=rwx file.txt` -> set read, write, and execute permissions to all.
 
+## chown
+**Description:** chown is a command-line utility that changes the user and/or group ownership of a file or directory.
+
+**Options:**
+- `-c`, `--changes`: Like verbose but report only when a change is made.
+- `-f`, `--silent`, `--quiet`: Suppress most error messages.
+- `-v`, `--verbose`: Output a diagnostic for every file processed.
+- `-R`, `--recursive`: Change files and directories recursively.
+
+**example:**
+- `chown user:group file.txt`: change the user and group ownership of the file.
+- `chown user file.txt`: change the user ownership of the file.
+- `chown :group file.txt`: change the group ownership of the file.
+
+```shell
+chown
+```
+## chgrp
+**Description:** chgrp is a command-line utility that changes the group ownership of a file or directory.
+
+**Options:**
+- `-c`, `--changes`: Like verbose but report only when a change is made.
+- `-f`, `--silent`, `--quiet`: Suppress most error messages.
+- `-v`, `--verbose`: Output a diagnostic for every file processed.
+- `-R`, `--recursive`: Change files and directories recursively.
+
+**example:**
+- `chgrp group file.txt`: change the group ownership of the file.
+
+```shell
+chgrp
+```
+## clear
+**Description:** clear is a command-line utility that clears the terminal screen.
+
+```shell
+clear
+```
 ## cp
 **Description:** cp is a command-line utility for copying files and directories.
 
@@ -92,6 +130,7 @@ calculate the octal mode by adding the permissions for each user type.
 ```shell
 cp
 ```
+
 ## date
 **Description:** date is a command-line utility that displays the current date and time.
 
