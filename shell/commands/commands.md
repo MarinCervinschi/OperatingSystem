@@ -76,6 +76,9 @@ calculate the octal mode by adding the permissions for each user type.
 - `chmod o=r file.txt` -> set read permission to others.
 - `chmod a=rwx file.txt` -> set read, write, and execute permissions to all.
 
+```shell
+chmod
+```
 ## chown
 **Description:** chown is a command-line utility that changes the user and/or group ownership of a file or directory.
 
@@ -282,6 +285,17 @@ head
 
 ```shell
 id
+```
+## inhibition ''
+**Description:** inhibition is a command-line utility that prevents the shell from interpreting special characters.
+
+**example:**
+- `echo 'Hello, World!'`: print the text as it is.
+- `echo "Hello, World!"`: print the text as it is.
+- `echo '$HOME'`: print the text as it is. Do not interpret the variable.
+
+```shell
+'command'
 ```
 ## kill
 **Description:** kill is a command-line utility that sends a signal to a process.
@@ -684,6 +698,23 @@ sort
 ```shell
 tail
 ```
+## tee
+**Description:** tee is a command-line utility that reads from the standard input and writes to the standard output and files.
+
+**Options:**
+- `-a`, `--append`: Append to the given files.
+- `-i`, `--ignore-interrupts`: Ignore interrupt signals.
+- `-p`, `--output-error`: Write the error messages to standard error.
+- `-u`, `--unbuffered`: Write to standard output without buffering.
+    
+**example:**
+- `ls -l | tee file.txt`: save the output of the command to a file.
+- `echo 'Hello, World!' | tee file.txt`: save the text to a file.
+- `cat file.txt | tee file2.txt`: copy the content of the file to another file.
+
+```shell
+tee
+```
 ## touch
 **Description:** touch is a command-line utility that changes file timestamps. If the file does not exist, it creates an empty file.
 
@@ -737,4 +768,25 @@ whereis
 
 ```shell
 which
+```
+## who
+**Description:** who is a command-line utility that displays information about logged-in users.
+
+**Options:**
+- `-a`: Print all information.
+- `-b`: Time of the last system boot.
+- `-d`: Time of the last system down.
+- `-H`: Write column headings above the regular output.
+- `-l`: Print system login processes.
+- `-m`: Only hostname and user associated with stdin.
+- `-q`: Quick login status.
+- `-r`: Current runlevel.
+- `-s`: List only the name, line, and time fields.
+- `-t`: Print last system clock change.
+- `-T`: Print current and last system clock change.
+- `-u`: Print the idle time for logged-in users.
+- `-w`: Print system login processes.
+
+```shell
+who
 ```
