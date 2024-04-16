@@ -18,7 +18,7 @@ do
         then
             echo Error: $G non directory o non traversabile
             exit 2
-        fi
+        fi;;
     *) echo Error: $G non in forma assoluta; exit 3;;
     esac
 done
@@ -31,9 +31,9 @@ export PATH
 > /tmp/nomiAssoluti
 
 # chiamate ricorsiva per esplorare le gerarchie
-for $G
+for G
 do
-    echo fase per $G
+    echo "fase per $G \n"
     FCR.sh $G /tmp/nomiAssoluti
 done
 
@@ -43,7 +43,8 @@ N=`wc -l < /tmp/nomiAssoluti`
 echo Abbiamo trovato in totale $N file con solo caratteri minuscoli
 
 # invoco la parte c
-echo main.c `cat /tmp/nomiAssoluti`
+echo main.c 
+#`cat /tmp/nomiAssoluti`
 
 #cancello il file temporaneo
 rm /tmp/nomiAssoluti

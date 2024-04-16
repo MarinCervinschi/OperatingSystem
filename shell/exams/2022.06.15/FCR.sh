@@ -7,31 +7,28 @@ T=$2
 # mi sposto nella gerarchia passata come parametro
 cd $G
 
-for F
+for F in *
 do
-    # se file leggibile
-    if test -f $F -a -r $F
+    # Se file leggibile e non vuoto
+    if test -f "$F" -a -r "$F" -a -s "$F"
     then
-
-        # Se file leggibile e non vuoto
-        if test -f "$F" -a -r "$F" -a -s "$F"
+        # controllo il contenuto del file, deve contenere 
+        # soltanto caratteri minuscoli
+        if grep -qv '[^a-z \n]' "$F"
         then
-            # controllo il contenuto del file, deve contenere 
-            # soltanto caratteri minuscoli
-            case cat $F in
-            [!a-z]) echo File $F non contiene solo caratteri minuscoli;;
-            *)      echo `pwd`/$F >> $T
-                    echo Trovato file che rispetta le specifiche : `pwd`/$F;;
-            esac
+            echo `pwd`/$F >> $T
+            echo Trovato file che rispetta le specifiche : `pwd`/$F
+        else
+            echo File $F non contiene solo caratteri minuscoli
         fi
     fi
 done
 
 # chiamata ricorsiva per le sotto-directory
-for $d in *
+for D in *
 do
-    if test -d $d -a -x $d
+    if test -d $D -a -x $D
     then
-        FCR.sh `pwd`/$d $T
+        FCR.sh `pwd`/$D $T
     fi
 done
