@@ -1,5 +1,5 @@
 {
-    "Zsh Shebang": {
+	"Zsh Shebang": {
 		"scope": "shellscript",
 		"prefix": "zz",
 		"body": [
@@ -222,6 +222,18 @@
 			"fi"
 		]
 	},
+	"è pari o dispari": {
+		"prefix": "pariODispari",
+		"body": [
+			"# Verifico che il parametro sia un numero pari o dispari",
+			"if test `expr \\$${1:i} % 2` -eq 0       # dispari -eq 1",
+			"then",
+			"\techo \\$${1:i} pari",
+			"else",
+			"\techo \\$${1:i} dispari",
+			"fi"
+		]
+	},
 	"incrementa" :{
 		"prefix": "incrementa",
 		"body": [
@@ -325,6 +337,7 @@
 			"# chiamata ricorsiva per le sotto-directory",
 			"for ${1:D} in *",
 			"do",
+			"\t# se directory traversabile",
 			"\tif test -d \\$${1:D} -a -x \\$${1:D}",
 			"\tthen",
 			"\t\tFCR.sh `pwd`/\\$${1:D}",
