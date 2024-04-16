@@ -41,7 +41,7 @@
 			"\t\tthen",
 			"\t\t\techo Error: \\$G non directory o non traversabile",
 			"\t\t\texit 0000",
-			"\t\tfi",
+			"\t\tfi;;",
 			"\t*) echo Error: \\$G non in forma assoluta; exit 0000;;",
 			"\tesac",
 			"done"
@@ -110,14 +110,21 @@
 			"export PATH"
 		]
 	},
+	"spostati nella gerarchia passata come parametro": {
+		"prefix": "spostati",
+		"body": [
+			"# mi sposto nella gerarchia passata come parametro",
+			"cd \\$G"
+		]
+	},
 	"crea file temporaneo": {
 		"prefix": "temporaneo",
 		"body": [
 			"# creo un file temporaneo",
-			"> /tmp/tmp$$",
+			"> /tmp/conta$$",
 			"\n\n",
 			"#cancello il file temporaneo",
-			"rm /tmp/tmp$$"
+			"rm /tmp/conta$$"
 		]
 	},
 	"esci del programma": {
@@ -265,6 +272,26 @@
     		"esac"
 		]
 	},
+	"Dammi un numero X": {
+		"prefix": "dammiNumero",
+		"body": [
+			"echo Dammi un numero X",
+        	"read \\$$X\n",
+        	"expr \\$$X + 0  > /dev/null 2>&1",
+        	"N1=\\$?",
+        	"if test \\$N1 -ne 2 -a \\$N1 -ne 3",
+        	"then # in questo caso è certamente numerico",
+        	    "\tif test \\$$X -lt 0 # controllo che il numero sia positivo",
+        	    "\tthen",
+        	        "\t\techo ERROR: \\$$X non strettamente positivo",
+        	        "\t\texit 0000",
+        	    "\tfi",
+        	"else",
+        	    "\techo ERROR: \\$$X non numerico",
+        	    "\texit 0000",
+        	"fi"
+		]
+	},
 	"stringa": {
 		"prefix": "stringa",
 		"body": [
@@ -296,11 +323,11 @@
 		"prefix": "ricorsione",
 		"body": [
 			"# chiamata ricorsiva per le sotto-directory",
-			"for \\$$d in *",
+			"for ${1:D} in *",
 			"do",
-			"\tif test -d \\$$d -a -x \\$$d",
+			"\tif test -d \\$${1:D} -a -x \\$${1:D}",
 			"\tthen",
-			"\t\tFCR.sh `pwd`/\\$$d",
+			"\t\tFCR.sh `pwd`/\\$${1:D}",
 			"\tfi",
 			"done"
 		]
@@ -309,10 +336,10 @@
 		"prefix": "esploraG",
 		"body": [
 			"# chiamate ricorsiva per esplorare le gerarchie",
-			"for \\$G",
+			"for ${1:G}",
 			"do",
-			"\techo fase per \\$G",
-			"\tFCR.sh \\$G $1",
+			"\techo fase per \\$${1:G}",
+			"\tFCR.sh \\$${1:G}",
 			"done"
 		]
 	},
