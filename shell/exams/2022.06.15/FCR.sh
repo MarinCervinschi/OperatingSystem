@@ -12,9 +12,9 @@ do
     # Se file leggibile e non vuoto
     if test -f "$F" -a -r "$F" -a -s "$F"
     then
-        # controllo il contenuto del file, deve contenere 
-        # soltanto caratteri minuscoli
-        if grep -qv '[^a-z \n]' "$F"
+        # numero di righe con almeno un carattere diverso da un carattere minuscolo
+        NG=`grep '[^a-z \n]' $F | wc -l`
+        if test $NG -eq 0
         then
             echo `pwd`/$F >> $T
             echo Trovato file che rispetta le specifiche : `pwd`/$F
