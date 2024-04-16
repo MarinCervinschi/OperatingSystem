@@ -3,8 +3,8 @@
 
 # controllo il numero dei parametri
 case $# in
-0|1) 	echo ERROR: numero di paramtri non accettabile
-        exit 0000;;
+0|1|2) 	echo ERROR: numero di paramtri non accettabile
+        exit 1;;
 *)		echo DEBUG-OK: numero di parametri corretto;;
 esac
 
@@ -16,19 +16,19 @@ then # in questo caso è certamente numerico
     if test $1 -le 0 # controllo che il numero sia positivo
     then
         echo ERROR: $1 non strettamente positivo
-        exit 0000
+        exit 2
     fi
     # Verifico che il parametro sia un numero dispari
     if test `expr $1 % 2` -eq 0
     then
         echo Error: $1 pari, deve essere dispari
-        exit 0000
+        exit 3
     else
         echo DEBUG-OK: $1 dispari
     fi
 else
     echo ERROR: $1 non numerico
-    exit 0000
+    exit 4
 fi
 X=$1 # variabile del testo
 
@@ -42,9 +42,9 @@ do
     /*) if test ! -d $G -o ! -x $G
         then
             echo Error: $G non directory o non traversabile
-            exit 0000
+            exit 5
         fi;;
-    *) echo Error: $G non in forma assoluta; exit 0000;;
+    *) echo Error: $G non in forma assoluta; exit 6;;
     esac
 done
 

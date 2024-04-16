@@ -11,7 +11,7 @@ cd $G
 files=
 
 # variabile utile per sapere se un file si trova in una posizione pari o dispari
-count=0
+count=1
 for F in *
 do
     # se file leggibile
