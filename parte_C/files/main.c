@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
 	if (argc != 3) 	{ 
 		/* controllo sul numero di argomenti */
 		printf ("Errore: numero di argomenti sbagliato\n");
-		exit (1); 
+		exit(1); 
 	}
 
 	status = copyfile(argv[1], argv[2]);

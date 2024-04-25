@@ -3,6 +3,7 @@ node_modules
 
 # Visual Studio Code
 .vscode
+*.dSYM
 
 # macOS
 .DS_Store
