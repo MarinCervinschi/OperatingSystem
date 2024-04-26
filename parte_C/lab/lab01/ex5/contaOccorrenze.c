@@ -20,7 +20,7 @@ long int numeroDiOccorenze(int file, char Cx) {
 
 int main(int argc, char **argv) {
     /* controllo il numero di parametri */
-    if (argc != 2) {
+    if (argc != 3) {
         printf("Error: numero di parametri errato\n");
         exit(1);
     }
@@ -45,6 +45,7 @@ int main(int argc, char **argv) {
 
     long int totale = numeroDiOccorenze(fd1, Cx);
     printf("Il file '%s' contiene %ld caratteri '%c'\n", argv[1], totale, Cx);
+    close(fd1);
 
     return 0;
 }

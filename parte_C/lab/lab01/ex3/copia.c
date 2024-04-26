@@ -11,8 +11,8 @@ int copyfile(char *f1, char * f2) {
 	if ((infile = open(f1, O_RDONLY)) < 0) {
 		return 2;
 	}
-
 	/* ERRORE se non si riesce ad aprire in LETTURA il primo file */
+	
 	if ((outfile = creat(f2, PERM)) < 0) {
 		/* ERRORE se non si riesce a creare il secondo file */
 		close(infile); 
@@ -28,8 +28,8 @@ int copyfile(char *f1, char * f2) {
 		}
 	}
 
-	close (infile); 
-	close (outfile);
+	close(infile); 
+	close(outfile);
 
 	/* se arriviamo qui, vuol dire che tutto è andato bene */
 	return 0;
