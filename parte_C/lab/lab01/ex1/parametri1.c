@@ -13,7 +13,7 @@ int main(int argc, char const *argv[]) {
 
     /* itero su tutti i parametri e li stampo, indicando l'indice */
     for (int i = 0; i < argc - 1; i++) {
-        printf("Parametro %d: %s\n", i, argv[i + 1]);
+        printf("Parametro %d: %s\n", i + 1, argv[i + 1]);
     }
     
     return 0;
