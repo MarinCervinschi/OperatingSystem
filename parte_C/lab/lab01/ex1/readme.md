@@ -1,4 +1,4 @@
-# 1
+# EX 1
 Con un editor, scrivere un programma in C **parametri1.c** che deve essere invocato con **almeno 1 parametro**; 
 
 Dopo aver fatto il controllo che il numero dei parametri sia giusto (controllo LASCO), si visualizzi su standard output il nome
