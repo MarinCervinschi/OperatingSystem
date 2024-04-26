@@ -22,7 +22,8 @@ int copyfile(char *f1, char * f2) {
 	while ((nread = read(infile, buffer, BUFSIZ)) > 0 ) { 
 		if (write(outfile , buffer, nread) < nread) { 
 			/* ERRORE se non si riesce a SCRIVERE */
-			close (infile); close (outfile); 
+			close (infile); 
+			close (outfile); 
 			return 4; 
 		}
 	}

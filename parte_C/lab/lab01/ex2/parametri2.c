@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
         exit(3);
     }
 
-    /* controllo che il terzo parametro sia un sincolo carattere */
+    /* controllo che il terzo parametro sia un singolo carattere */
     char C;
     if ((C = argv[3][1]) != '\0') {
         printf("Error: %s non singolo carattere\n", argv[3]);
