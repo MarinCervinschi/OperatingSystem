@@ -6,14 +6,14 @@
 
 int copyfile(char *f1, char * f2) { 
 	int infile, outfile, nread;
-	char buffer [BUFSIZ]; /* usato per i caratteri */
+	char buffer[BUFSIZ]; /* usato per i caratteri */
 
-	if ((infile = open (f1, O_RDONLY)) < 0 ) {
+	if ((infile = open(f1, O_RDONLY)) < 0) {
 		return 2;
 	}
 
 	/* ERRORE se non si riesce ad aprire in LETTURA il primo file */
-	if ((outfile = creat(f2, PERM)) <0 ) {
+	if ((outfile = creat(f2, PERM)) < 0) {
 		/* ERRORE se non si riesce a creare il secondo file */
 		close(infile); 
 		return 3; 
