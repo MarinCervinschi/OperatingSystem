@@ -1,5 +1,4 @@
 #include <stdio.h> /* Standard I/O: printf, BUFSIZ */
-#include <fcntl.h> /* File CoNTrol: open, O_RDONLY, O_WRONLY, O_RDWR */
 #include <stdlib.h> /* STanDard LIBrary: exit, malloc, calloc, free, atoi */
 #include <unistd.h> /* UNIx Standard: read, write, close, SEEK_SET, SEEK_CUR, SEEK_END */
 #include <sys/stat.h> /* SYStem STATus: stat, fstat, S_IFMT, S_IFDIR, S_IFREG */
