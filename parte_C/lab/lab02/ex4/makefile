@@ -1,13 +1,13 @@
 CC = gcc
 CFLAGS = -Wall -std=c11
-NAME = provaValoriWait
-SRCS = provaValoriWait.c
+SRCS = $(wildcard *.c)
+NAME = $(SRCS:.c=)
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
