@@ -1,2 +1,23 @@
-main: parametri2.c
-	gcc -Wall -std=c11 -o parametri2 parametri2.c
+CC = gcc
+CFLAGS = -Wall -std=c11
+NAME = parametri2
+SRCS = parametri2.c
+OBJS = $(SRCS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
