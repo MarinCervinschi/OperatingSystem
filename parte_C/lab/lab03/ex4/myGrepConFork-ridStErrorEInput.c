@@ -34,14 +34,21 @@ int main(int argc, char **argv) {
         printf("DEBUG-Esecuzione di grep %s %s da parte del figlio con pid %d\n", argv[1], argv[2], getpid());
         printf("--------------------------------\n");
 
-        printf("DEBUG-Redirezione di STDOUT e STDERROR su /dev/null\n");
+        /* redirigo lo STDIN sul file argv[2] */
+        close(0);
+        if (open(argv[2], O_RDONLY) < 0) {
+            printf("Errore in apertura file '%s'\n", argv[2]);
+            exit(-1);
+        }
+
+        /* redirigo lo STDOUT su /dev/null */
         close(1);
         open("/dev/null", O_WRONLY);
 
         /* redirigo anche lo STDERROR su /dev/null come dice il testo */
         close(2);
         open("/dev/null", O_WRONLY);
-        execlp("grep", "grep", argv[1], argv[2], (char *) 0);
+        execlp("grep", "grep", argv[1], (char *) 0); /* eseguo grep passando solo la stringa */
 
         /* eseguiamo solo in caso del fallimento del EXECL */
         /* non stampo nulla poiche' STDOUT -> /dev/null */
