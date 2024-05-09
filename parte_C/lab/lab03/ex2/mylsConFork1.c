@@ -13,9 +13,6 @@ void checkParams(int argc, char **argv) {
         printf("Usage: %s <directory>\n", argv[0]);
         exit(1);
     }
-    
-    /* controllo che il parametro sia una directory */
-
 }
 int main(int argc, char **argv) {
     checkParams(argc, argv);
