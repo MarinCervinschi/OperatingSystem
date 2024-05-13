@@ -26,16 +26,16 @@ OBJS = \$(SRCS:.c=.o)
 all: \$(NAME)
 
 \$(NAME): \$(OBJS)
-    \$(CC) \$(CFLAGS) -o \$@ \$(OBJS)
+\t\$(CC) \$(CFLAGS) -o \$@ \$(OBJS)
 
 %.o: %.c
-    \$(CC) \$(CFLAGS) -c \$< -o \$@
+\t\$(CC) \$(CFLAGS) -c \$< -o \$@
 
 clean:
-    rm -f \$(OBJS)
+\trm -f \$(OBJS)
 
 fclean: clean
-    rm -f \$(NAME)
+\trm -f \$(NAME)
 
 re: fclean all
 
