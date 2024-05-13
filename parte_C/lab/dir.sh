@@ -17,6 +17,30 @@ if ! [[ $2 =~ ^[0-9]+$ ]]; then
     exit 3
 fi
 
+content="CC = gcc
+CFLAGS = -Wall -std=c11
+SRCS = \$(wildcard *.c)
+NAME = \$(SRCS:.c=)
+OBJS = \$(SRCS:.c=.o)
+
+all: \$(NAME)
+
+\$(NAME): \$(OBJS)
+    \$(CC) \$(CFLAGS) -o \$@ \$(OBJS)
+
+%.o: %.c
+    \$(CC) \$(CFLAGS) -c \$< -o \$@
+
+clean:
+    rm -f \$(OBJS)
+
+fclean: clean
+    rm -f \$(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re"
+
 cd $1
 
 for i in $(seq 1 $2)
@@ -24,5 +48,6 @@ do
     mkdir ex$i
     cd ex$i
     echo "### EX $i" > readme.md 
+    echo $content > makefile
     cd ..
 done
