@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -std=c11
-SRCS = $(wildcard *.c)
-NAME = $(SRCS:.c=)
+SRCS = provaEsame2-b.c
+NAME = provaEsame2-b
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
