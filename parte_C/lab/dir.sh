@@ -8,8 +8,7 @@ if [ $# != 2 ]; then
 fi
 
 if ! [ -d "$1" ]; then
-    echo "Error: $1 is not a valid directory"
-    exit 2
+    mkdir $1
 fi
 
 if ! [[ $2 =~ ^[0-9]+$ ]]; then
