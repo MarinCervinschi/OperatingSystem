@@ -6,9 +6,7 @@
 #include <stdlib.h> /* STanDard LIBrary: exit, malloc, calloc, free, atoi */
 #include <unistd.h> /* UNIx Standard: read, write, close, SEEK_SET, SEEK_CUR, SEEK_END */
 #include <string.h> /* STRING: strlen, strcpy, strcmp */
-#include <sys/stat.h> /* SYStem STATus: stat, fstat, S_IFMT, S_IFDIR, S_IFREG */
 #include <sys/wait.h> /* SYStem WAIT: wait */
-#include <sys/types.h> /* SYStem TYPES: pid_t */
 #include <stdbool.h> /* Standard Boolean: bool, true, false */
 #define N 26 /* numero di figli da creare: il valore e' COSTANTE! */
 
