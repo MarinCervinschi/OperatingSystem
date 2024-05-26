@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
             printf("##################################################\n");
             printf("Error: nella fork per il figlio %d-edimo\n", i);
             printf("##################################################\n");
-            exit(3);
+            exit(4);
         }
 
         if (pid == 0) {
@@ -146,7 +146,7 @@ int main(int argc, char **argv) {
                 printf("##################################################\n");
                 printf("Error: nella wait per il nipote %d\n", i);
                 printf("##################################################\n");
-                exit(-3);
+                exit(-1);
             }
 
             /* Controllo del valore di ritorno del nipote */
@@ -154,7 +154,7 @@ int main(int argc, char **argv) {
                 printf("##################################################\n");
                 printf("Error: il nipote %d non è terminato correttamente\n", i);
                 printf("##################################################\n");
-                exit(-4);
+                exit(-1);
             } else {
                 printf("DEBUG: Il nipote %d con pid = %d è terminato correttamente\n", i, pidNipote);
                 exit(infoNipote.lunghezza -1);
@@ -178,7 +178,7 @@ int main(int argc, char **argv) {
             printf("##################################################\n");
             printf("Error: nella lettura del figlio %d\n", i);
             printf("##################################################\n");
-            exit(4);
+            exit(5);
         }
 
         printf("DEBUG: Il figlio %d-esimo associato al file %s ha trovato:\n", i, argv[i + 1]);
@@ -192,7 +192,7 @@ int main(int argc, char **argv) {
             printf("##################################################\n");
             printf("Error: nella wait per il figlio %d\n", i);
             printf("##################################################\n");
-            exit(4);
+            exit(6);
         }
 
         /* Controllo del valore di ritorno del figlio */
@@ -202,7 +202,7 @@ int main(int argc, char **argv) {
             printf("##################################################\n");
             printf("Error: il figlio %d non è terminato correttamente\n", i);
             printf("##################################################\n");
-            exit(5);
+            exit(7);
         } else {
             printf("DEBUG: Il figlio %d con pid = %d è terminato correttamente ritornando %d\n", i, pidFiglio, result);
         }
