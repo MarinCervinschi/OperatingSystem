@@ -4,7 +4,7 @@
 # Verifica che il numero di argomenti sia corretto
 if test $# -ne 2
 then
-    echo "Usage: $0 <nome_gerarchia> <num_livelli>"
+    echo "Usage: createGer <nome_gerarchia> <num_livelli>"
     exit 1
 fi
 
