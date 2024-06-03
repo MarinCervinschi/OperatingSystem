@@ -25,7 +25,7 @@
 			"#include <sys/wait.h> /* SYStem WAIT: wait */",
 			"#include <sys/types.h> /* SYStem TYPES: pid_t */",
 			"",
-			"typedef int pipe_t[2]; /* Definizione di un tipo pipe_t come array di 2 interi */",
+			"typedef int pipe_t[2]; /* Definizione di un tipo pipe_t come array di 2 interi */"
 
 		],
 		"description": "Libraries"
@@ -1084,7 +1084,7 @@
 			"\tint casuale;",
 			"\tcasuale = rand() % n;",
 			"\treturn casuale;",
-			"}",
+			"}"
 		],
 		"description": "Generate a random number between 0 and n-1"
 	},
