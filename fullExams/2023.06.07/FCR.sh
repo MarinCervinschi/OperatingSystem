@@ -24,7 +24,7 @@ then
 	if test "$files"
 	then
 		echo DEBUG-CHIAMO PARTE C con file $files
-		#main $files
+		main $files
 	else
 	    echo NESSUN file che soddisfa le specifiche e quindi niente chiamata parte C
     fi
