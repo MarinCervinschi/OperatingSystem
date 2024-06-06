@@ -37,7 +37,7 @@ if test $cont -ge $M # se ho trovato almeno M file
 then
     echo "Sono `pwd` e ho trovato $cont file"
     echo DEBUG-CHIAMO PARTE C con file $files
-    #main $files # chiamo la parte C
+    main $files # chiamo la parte C
 fi
 
 # chiamata ricorsiva per le sotto-directory
