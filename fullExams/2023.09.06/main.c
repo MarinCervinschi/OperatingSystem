@@ -96,9 +96,10 @@ int main(int argc, char const **argv) {
             /* Chiudo tutte le pipe di non interesse */
             for(j = 0; j < N; j++) {
                 close(piped_PF[j][1]);
-                if (j != n)
+                if (j != n) {
                     close(piped_FP[j][1]);
-                    close(piped_PF[j][1]);
+                    close(piped_PF[j][0]);
+                }
 
                 if ((n == 0) || (j != n-1))
                     close(piped_FP[j][0]);
