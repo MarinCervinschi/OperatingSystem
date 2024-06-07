@@ -49,7 +49,7 @@ then
     do
         # chiamo la parte C passando tutti i file con estensione $E1 e il file con estensione $E2
         echo DEBUG-CHIAMO PARTE C con file $files1 e $f
-        #main $files $f
+        main $files1 $f
     done
 fi
 

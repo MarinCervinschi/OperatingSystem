@@ -10,13 +10,13 @@ case $# in
 esac
 
 # controllo che il primo parametro sia una directory in forma assoluta
-case $G in
-/*) if test ! -d $G -o ! -x $G
+case $1 in
+/*) if test ! -d $1 -o ! -x $1
     then
-        echo Error: $G non directory o non traversabile
+        echo Error: $1 non directory o non traversabile
         exit 2
     fi;;
-*) echo Error: $G non in forma assoluta; exit 3;;
+*) echo Error: $1 non in forma assoluta; exit 3;;
 esac
 
 
