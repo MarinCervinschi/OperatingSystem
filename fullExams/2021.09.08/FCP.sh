@@ -13,7 +13,7 @@ esac
 # controllo che il primo parametro sia un singolo carattere
 case $1 in
 ?)	echo DEBUG-OK: primo parametro char;;
-*)	echo $1 non singolo carattere; exit 2
+*)	echo $1 non singolo carattere; exit 2;;
 esac
 
 #salviamo il parametro: il nome della variabile da usare era specificato nel testo
