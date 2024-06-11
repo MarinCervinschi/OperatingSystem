@@ -66,7 +66,7 @@ do
     done
     # inutile uscire dato che i nomi delle gerarchie sono nomi assoluti
     echo DEBUG-CHIAMO PARTE C con file $files
-    #main $files
+    main $files
 done
 
 #cancello il file temporaneo
