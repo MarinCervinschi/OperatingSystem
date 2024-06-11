@@ -31,7 +31,7 @@ done
 
 if test "$files"
 then
-    echo "Sono `pwp` e ho trovato almeno un file leggibile con lunghezza in linee maggiore o uguale a $X"
+    echo "Sono `pwd` e ho trovato almeno un file leggibile con lunghezza in linee maggiore o uguale a $X"
     # per ogni file trovato
     for F in $files
     do
