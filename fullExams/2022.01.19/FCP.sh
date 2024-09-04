@@ -94,7 +94,7 @@ echo "Ho trovato [$NumeroFileTrovati] file globali che soddisfano le richieste!"
 echo "################################################################################"
 
 echo "DEBUG-CHIAMO PARTE C con file `cat /tmp/nomiAssoluti` e il numero [$C]"
-#main `cat /tmp/nomiAssoluti` $C
+main `cat /tmp/nomiAssoluti` $C
 
 #cancello il file temporaneo
 rm /tmp/nomiAssoluti
