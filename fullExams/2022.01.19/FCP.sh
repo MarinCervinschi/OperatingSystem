@@ -18,17 +18,17 @@ then # in questo caso è certamente numerico
     if test $1 -lt 0 # controllo che il numero sia positivo
     then
         echo ERROR: $1 non strettamente positivo
-        exit 3
+        exit 2
     fi
     # Verifico che il parametro sia un numero dispari
     if test `expr $1 % 2` -eq 0 
     then
         echo ERROR: $1 non dispari
-        exit 4
+        exit 3
     fi
 else
     echo ERROR: $1 non numerico
-    exit 2
+    exit 4
 fi
 
 C=$1 # variabile del testo
@@ -42,17 +42,17 @@ then # in questo caso è certamente numerico
     if test $2 -lt 0 # controllo che il numero sia positivo
     then
         echo ERROR: $2 non strettamente positivo
-        exit 6
+        exit 5
     fi
     # Verifico che il parametro sia un numero pari
     if test `expr $2 % 2` -eq 1
     then
         echo ERROR: $2 non pari
-        exit 7
+        exit 6
     fi
 else
     echo ERROR: $2 non numerico
-    exit 5
+    exit 7
 fi
 
 X=$2 # variabile del testo
@@ -68,9 +68,9 @@ do
     /*) if test ! -d $G -o ! -x $G
         then
             echo Error: $G non directory o non traversabile
-            exit 0000
+            exit 8
         fi;;
-    *) echo Error: $G non in forma assoluta; exit 0000;;
+    *) echo Error: $G non in forma assoluta; exit 9;;
     esac
 done
 
