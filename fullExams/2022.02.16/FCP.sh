@@ -52,7 +52,7 @@ N=`wc -l < /tmp/nomiAssoluti` # N variabile del testo
 if test $N -ge 2
 then
     echo DEBUG-CHIAMO PARTE C con file `cat /tmp/nomiAssoluti`
-    #main `cat /tmp/nomiAssoluti` $C
+    main `cat /tmp/nomiAssoluti` $C
 fi
 
 #cancello il file temporaneo
