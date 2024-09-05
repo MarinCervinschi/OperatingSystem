@@ -36,8 +36,8 @@ done
 if test $cont -lt $H -a $cont -ge 2
 then
     echo DIRETTORIO VALIDO `pwd`
-    echo DEBUG-CHIAMO PARTE C con file $files e il numero M=[$M]
-    #main $files $M
+    echo "DEBUG-CHIAMO PARTE C con file [$files] e il numero M=[$M]"
+    main $files $M
 fi
 
 # chiamata ricorsiva per le sotto-directory
