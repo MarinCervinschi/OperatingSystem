@@ -37,7 +37,7 @@ do
             done
             if test $trovato -eq 1 # se ho trovato almeno un file
             then
-                echo "SONO UN FILE BUONO - [$F]"
+                echo "SONO UN FILE BUONO - [`pwd`/$F]"
                 echo `pwd`/$F >> $TMP
                 trovato=0
             fi

@@ -65,7 +65,7 @@ echo "Nella gerarchia [$G] ho trovato [`wc -l < /tmp/nomiAssoluti`] file"
 for F in `cat /tmp/nomiAssoluti`
 do
     echo "DEBUG-CHIAMO PARTE C con file [$F] il numero [$L] e i caratteri [$*]"
-    #main $F $L $*
+    main $F $L $*
 done
 
 #cancello il file temporaneo
