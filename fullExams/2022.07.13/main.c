@@ -1,25 +1,3 @@
-
-/*
-    BUG: commento personale
-
-        Con il padre alla fine del ring, bisogna allocare memoria pari a n + 1. La
-            chiusura e l'utilizzo avviene nel seguente modo:
-                + Lettura, leggo da se stesso, dalla pipe q-esima
-                + Scrittura, scrivo nella pipe successiva, (q + 1)-esima
-
-        Chiusura delle pipe lato padre:
-            - Scrittura, chiudo tutto tranne 0, scriverò al processo iniziale.
-            - Lettura, chiudo tutte le pipe ad eccezione di:
-                + n, leggerò da essa dal processo precedente
-                + 0, non chiudo la lettura finale per non ottenere SIGPIPE e non terminare
-                    il processo padre in maniera anomala
-
-        L'esempio di lettura e scrittura in questo caso è incorporato nel codice, da cancellare
-        perchè comprende due sezioni, il figlio e il padre.
-*/
-
-
-
 /* File main.c */
 /* Standard C = C11 */
 
