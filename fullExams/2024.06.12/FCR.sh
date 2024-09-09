@@ -26,19 +26,28 @@ esac
 
 files= # variabile per salvare i file che rispettano i criteri
 
+cont=0
+# ATTENZIONE 'cont' e' la variabile del testo
+
 for F in *
 do
     # controllo che sia un file leggibile
     if test -f $F -a -r $F
     then
         NL=`wc -l < $F` # numero di righe del file
-        if test $NL -ne 0 -a `expr $NL % 2` -eq 0  # controllo che il numero di righe sia diverso da 0 (non vuoto) e pari
+        if test `expr $NL % 2` -eq 0  # controllo che il numero di righe sia pari
         then
+            cont=`expr $cont + 1`
             files="$files $F" # aggiungo il file alla lista
-            C=1
         fi
     fi
 done
+
+# se ho trovato al meno un file leggibile NON vuoto con numero in linee pari
+if test $cont -gt 0
+then
+    C=1
+fi
 
 # Nel caso fossero rispetate tutte le richieste A B C
 if test $A -eq 1 -a $B -eq 1 -a $C -eq 1
