@@ -54,7 +54,7 @@ if test $A -eq 1 -a $B -eq 1 -a $C -eq 1
 then
     echo "SONO UN DIRETTORIO VALIDO [`pwd`]"
     echo DEBUG-CHIAMO PARTE C con file $files
-    #main $files
+    main $files
 fi
 
 # Nel caso fossero rispetate A B ma non C
